@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="OxideClassLibrary/OxideClassLibrary.csproj" />
+  <Project Path="OxideWebApi/OxideWebApi.csproj" />
+</Solution>

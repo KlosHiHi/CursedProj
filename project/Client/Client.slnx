@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../Server/OxideClassLibrary/OxideClassLibrary.csproj" />
+  <Project Path="AndesiteAvaloniaApp/AndesiteAvaloniaApp.csproj" />
+</Solution>
