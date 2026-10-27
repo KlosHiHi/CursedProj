@@ -7,16 +7,29 @@ CursedProj/
 │  
 ├── diagrams/  
 │   │
+│   ├── desktop-app.png                     # Изображение оконного интерфейса
+│   ├── wireframe.png                       # Изоражение мобильного интерфейса
 │   ├── deployment-diagram.png              # Диаграмма развёртывания
 │   └── use-case.png                        # Диаграмма использования
 │    
-├── files/  
-│  
-├── .gitignore  
-├── Курсовой проект.docx  
-├── Курсовой проект.pdf  
-├── Лист задания.docx  
-└── README.md  
+├── files/                                  # Файлы для написания курсовой
+│ 
+├── project/
+│   │ 
+│   ├── Client/                             # Папка с проектами клиентской части
+│   │   │
+│   │   ├── AndesiteAvaloniaApp/ 
+│   │   └── AndesiteKotlinApp/
+│   │
+│   └── Server/                             # Папка с проектами серверной части
+│       │
+│       ├── OxideClassLibrary/              # Бибилиотека классов
+│       └── OxideWebApi/                    # Веб-Api "Oxide"
+│ 
+├── GOALS.md                                # Пункты для выполнения
+├── Курсовой проект.docx                    # Отчёт по курсовому проекту DOCX
+├── Курсовой проект.pdf                     # Отчёт по курсовому проекту PDF
+└── Лист задания.docx
 ```
 ***      
 ![minecraft_andesite](andesite-start.png)
