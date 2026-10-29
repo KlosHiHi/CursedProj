@@ -5,6 +5,8 @@
 ```
 CursedProj/  
 │  
+├── database/                               # Скрипты и схема БД
+│  
 ├── diagrams/  
 │   │
 │   ├── desktop-app.png                     # Изображение оконного интерфейса
@@ -31,7 +33,7 @@ CursedProj/
 ├── Курсовой проект.pdf                     # Отчёт по курсовому проекту PDF
 └── Лист задания.docx
 ```
-***      
+***
 ![minecraft_andesite](andesite-start.png)
 *** 
 
