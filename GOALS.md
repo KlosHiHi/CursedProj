@@ -9,7 +9,7 @@
     * <span style="color:green"> ~~1.2 Постановка задачи~~ </span>
     * <span style="color:green"> 1.3 Выбор состава программных и технических средств </span>
 * <span style="color:orange"> 2 Проектирование программного обеспечения (0/3)</span>
-    * <span style="color:orange"> 2.1 Макеты UI </span>
+    * <span style="color:green"> 2.1 Макеты UI </span>
     * <span style="color:green"> ~~2.2 Архитектура ПО~~ </span>
     * <span style="color:green"> ~~2.3 Проектирование БД~~</span>
 * <span style="color:yellow"> 3 Разработка программного обеспечения </span>
