@@ -7,13 +7,13 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AndesiteAvaloniaApp.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/Icons/avalonia-logo.ico"
         Title="AndesiteAvaloniaApp">
 
     <Design.DataContext>
 		<vm:MainWindowViewModel/>
-    </Design.DataContext>
+    </Design.DataContext>	
 
-	
+    <ContentControl Content="{Binding CurrentPage}"/>
 
 </Window>

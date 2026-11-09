@@ -1,7 +1,22 @@
-﻿namespace AndesiteAvaloniaApp.ViewModels
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace AndesiteAvaloniaApp.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
-        public string Greeting { get; } = "Welcome to Avalonia!";
+        [ObservableProperty]
+        private ViewModelBase _currentPage;
+
+        public MainWindowViewModel()
+        {
+            if (false)
+            {
+                CurrentPage = new MenuViewModel();
+            }
+            else
+            {
+                CurrentPage = new LoginViewModel(); 
+            }
+        }
     }
 }

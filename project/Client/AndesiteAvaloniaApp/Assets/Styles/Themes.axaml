@@ -1,0 +1,45 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+
+                <ResourceDictionary x:Key="Light">
+
+                    <SolidColorBrush x:Key="AppBackground" Color="#F5F6FA"/>
+
+                    <SolidColorBrush x:Key="Surface" Color="#252b2c"/>
+
+                    <SolidColorBrush x:Key="TextPrimary" Color="#1E293B"/>
+
+                    <SolidColorBrush x:Key="TextSecondary" Color="#64748B"/>
+
+                    <SolidColorBrush x:Key="Border" Color="#E2E8F0"/>
+
+                    <SolidColorBrush x:Key="Accent" Color="#6366F1"/>
+
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Dark">
+
+                    <SolidColorBrush x:Key="AppBackground" Color="#0e1415"/>
+
+                    <SolidColorBrush x:Key="Surface" Color="#1F2937"/>
+
+                    <SolidColorBrush x:Key="SurfaceHigh" Color="#303637"/>
+
+                    <SolidColorBrush x:Key="TextPrimary" Color="#FFFFFF"/>
+
+                    <SolidColorBrush x:Key="Border" Color="#000000"/>
+
+                    <SolidColorBrush x:Key="Accent" Color="#81d3dd"/>
+
+                    <SolidColorBrush x:Key="SecondAccent" Color="#deba52"/>
+
+                </ResourceDictionary>
+
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+</Styles>
