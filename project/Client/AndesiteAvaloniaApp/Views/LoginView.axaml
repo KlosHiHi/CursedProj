@@ -6,31 +6,15 @@
              xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
              x:DataType="vm:LoginViewModel"
              xmlns:help="using:AndesiteAvaloniaApp.Helpers"
-             x:Class="AndesiteAvaloniaApp.Views.LoginView"
-             Background="{DynamicResource AppBackground}">
-    <UserControl.Styles>
-		<Style Selector="Button">
-            <Setter Property="Background" Value="{DynamicResource Accent}"/>
-            <Setter Property="Foreground" Value="{DynamicResource AppBackground}"/>
-            <Setter Property="Width" Value="300"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="5"/>
-        </Style>
-        <Style Selector="Border">
-            <Setter Property="Background" Value="{DynamicResource Surface}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource Border}"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Margin" Value="3"/>
-        </Style>
-    </UserControl.Styles>
+             x:Class="AndesiteAvaloniaApp.Views.LoginView">
+	
     <Design.DataContext>
 		<vm:LoginViewModel/>
     </Design.DataContext>
 
     <DockPanel>
-        <Border DockPanel.Dock="Bottom" HorizontalAlignment="Right">
+		
+        <Border Classes="standart" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
             <Border.ContextFlyout>
                 <Flyout Placement="Top">
 			        <TextBlock Text="Сообщение с информацией"/>
@@ -38,15 +22,14 @@
             </Border.ContextFlyout>
 		    <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg" Width="30" Height="30"/>
         </Border>
-
-        <Popup/>
-
+		
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Bottom">           
             <Image Source="avares://AndesiteAvaloniaApp/Assets/Icons/andesite-start.png" Width="300" Height="300" Margin="10"/>            
-		    <Button Content="Локальная база"/>
-		    <Button Content="Войти"/>
+		    <Button Classes="login" Content="Локальная база"/>
+			<Button Classes="login" Content="Войти"/>
 		    <HyperlinkButton HorizontalAlignment="Center" Foreground="{DynamicResource Accent}" Content="Создание аккаунта"/>
         </StackPanel>
+		
     </DockPanel>
 
 </UserControl>

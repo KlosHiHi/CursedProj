@@ -1,0 +1,41 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	
+	<Style Selector="Button">
+		<Setter Property="FontFamily" Value="#Roboto"/>
+		<Setter Property="FontSize" Value="16"/>
+	</Style>
+		
+	<Style Selector="Button.login">
+		<Setter Property="Background" Value="{DynamicResource Accent}"/>
+		<Setter Property="Foreground" Value="{DynamicResource AppBackground}"/>
+		<Setter Property="Width" Value="300"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="Margin" Value="5"/>
+	</Style>
+
+	<Style Selector="Border.standart">
+		<Setter Property="Background" Value="{DynamicResource Surface}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource Border}"/>
+		<Setter Property="BorderThickness" Value="2"/>
+		<Setter Property="CornerRadius" Value="10"/>
+		<Setter Property="Margin" Value="3"/>
+	</Style>
+
+	<Style Selector="Window">
+		<Setter Property="Background" Value="{DynamicResource AppBackground}"/>
+	</Style>
+
+	<Style Selector="TextBlock">
+		<Setter Property="FontFamily" Value="#Roboto"/>
+		<Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+	</Style>
+
+	<Style Selector="TextBox">
+		<Setter Property="FontFamily" Value="#Roboto"/>
+		<Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+	</Style>
+	
+</Styles>
