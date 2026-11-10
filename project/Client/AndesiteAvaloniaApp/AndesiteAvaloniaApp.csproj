@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <AvaloniaXaml Remove="Assets\Styles\Styles.axaml" />
-    <AvaloniaXaml Remove="Assets\Styles\Themes.axaml" />
   </ItemGroup>
 
   <ItemGroup>

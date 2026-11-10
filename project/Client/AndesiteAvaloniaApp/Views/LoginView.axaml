@@ -24,11 +24,17 @@
         </Border>
 		
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Bottom">           
-            <Image Source="avares://AndesiteAvaloniaApp/Assets/Icons/andesite-start.png" Width="300" Height="300" Margin="10"/>            
-		    <Button Classes="login" Content="Локальная база"/>
-			<Button Classes="login" Content="Войти"/>
-		    <HyperlinkButton HorizontalAlignment="Center" Foreground="{DynamicResource Accent}" Content="Создание аккаунта"/>
-        </StackPanel>
+            <Image Source="avares://AndesiteAvaloniaApp/Assets/Icons/andesite-start.png" Width="300" Height="300" Margin="10"/>
+			
+		    <Button Name="CreateLocal" Classes="login" Content="Локальная база" 
+					Command="{Binding OpenWindowCommand}" CommandParameter="{Binding $self.Name}"/>
+			
+			<Button Name="SignIn" Classes="login" Content="Войти" 
+					Command="{Binding OpenWindowCommand}" CommandParameter="{Binding $self.Name}"/>
+
+			<HyperlinkButton Name="Register" HorizontalAlignment="Center" Foreground="{DynamicResource Accent}" Content="Создание аккаунта"
+							 Command="{Binding OpenWindowCommand}" CommandParameter="{Binding $self.Name}"/>
+		</StackPanel>
 		
     </DockPanel>
 

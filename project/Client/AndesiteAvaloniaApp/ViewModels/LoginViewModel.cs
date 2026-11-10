@@ -1,15 +1,28 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Controls;
+using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace AndesiteAvaloniaApp.ViewModels
 {
-    public partial class LoginViewModel : ViewModelBase
+    public partial class LoginViewModel(Window window) : ViewModelBase
     {
-        [ObservableProperty]
-        private ViewModelBase _currentPage;
+        private readonly Window _mainWindow = window;
 
+        [RelayCommand]
+        private async Task OpenWindow(string name)
+        {
+            var pathString = $"AndesiteAvaloniaApp.Views.{name}Window";
+            var windowType = Type.GetType(pathString);
 
+            if (windowType is null)
+                return;
+
+            if (Activator.CreateInstance(windowType) is Window window)
+            {
+                window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                var result = window.ShowDialog(_mainWindow);
+            }
+        }
     }
 }

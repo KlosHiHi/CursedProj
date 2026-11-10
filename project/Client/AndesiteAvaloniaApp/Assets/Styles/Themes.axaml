@@ -22,6 +22,10 @@
                     <SolidColorBrush x:Key="SecondAccent" Color="#deba52"/>
 					
                     <SolidColorBrush x:Key="Error" Color="#ba1a1a"/>
+					
+                    <SolidColorBrush x:Key="Black" Color="#000000"/>
+					
+                    <SolidColorBrush x:Key="White" Color="#FFFFFF"/>
 
                 </ResourceDictionary>
 
@@ -42,6 +46,10 @@
                     <SolidColorBrush x:Key="SecondAccent" Color="#deba52"/>
 					
 					<SolidColorBrush x:Key="Error" Color="#ffb4ab"/>
+					
+					<SolidColorBrush x:Key="Black" Color="#000000"/>
+					
+					<SolidColorBrush x:Key="White" Color="#FFFFFF"/>
 
                 </ResourceDictionary>
 

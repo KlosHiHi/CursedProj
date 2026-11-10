@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 
 namespace AndesiteAvaloniaApp.Views;
 
-public partial class SignInWindow : UserControl
+public partial class SignInWindow : Window
 {
     public SignInWindow()
     {
