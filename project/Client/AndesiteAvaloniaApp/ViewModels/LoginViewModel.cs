@@ -20,7 +20,7 @@ namespace AndesiteAvaloniaApp.ViewModels
 
             if (Activator.CreateInstance(windowType) is Window window)
             {
-                window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 var result = window.ShowDialog(_mainWindow);
             }
         }

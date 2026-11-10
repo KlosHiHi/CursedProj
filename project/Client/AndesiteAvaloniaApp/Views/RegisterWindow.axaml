@@ -5,6 +5,8 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		MinWidth="500" MinHeight="300"
 		MaxWidth="500" MaxHeight="300"
+		Title="Регистрация"
+		Icon="avares://AndesiteAvaloniaApp/Assets/Icons/andesite.ico"
         xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
 		x:DataType="vm:RegisterWindowViewModel"
         x:Class="AndesiteAvaloniaApp.Views.RegisterWindow">
@@ -12,7 +14,15 @@
 	<Design.DataContext>
 		<vm:RegisterWindowViewModel/>
 	</Design.DataContext>
-	
-	Регистрация
+
+	<DockPanel>
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Bottom">
+			<TextBlock Classes="login" Text="Логин"/>
+			<TextBlock Classes="login" Text="Пароль"/>
+			<TextBlock Classes="login" Text="Подтверждение"/>
+			<TextBlock Classes="login" Text="Email"/>
+			<Button Classes="login" Content="Зарегистрироваться"/>
+		</StackPanel>
+	</DockPanel>
 
 </Window>

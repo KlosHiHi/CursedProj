@@ -5,6 +5,8 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		MinWidth="500" MinHeight="300"
 		MaxWidth="500" MaxHeight="300"
+		Title="Вход"
+		Icon="avares://AndesiteAvaloniaApp/Assets/Icons/andesite.ico"
         xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
 		x:DataType="vm:SignInWindowViewModel"
         x:Class="AndesiteAvaloniaApp.Views.SignInWindow">
@@ -12,7 +14,23 @@
 	<Design.DataContext>
 		<vm:SignInWindowViewModel/>
 	</Design.DataContext>
-	
-	Вход
+
+	<DockPanel>
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Bottom">
+			
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Classes="login" Text="Логин"/>
+				<TextBox Classes="login" Watermark="Введите логин..."/>
+			</StackPanel>
+			
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Classes="login" Text="Пароль"/>
+				<TextBox Classes="login" Watermark="Введите пароль..."/>
+			</StackPanel>
+			
+			<Button Classes="login" Content="Войти"/>
+			
+		</StackPanel>
+	</DockPanel>
 	
 </Window>

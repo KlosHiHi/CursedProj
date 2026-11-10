@@ -15,11 +15,15 @@
     <DockPanel>
 		
         <Border Classes="standart" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
-            <Border.ContextFlyout>
-                <Flyout Placement="Top">
-			        <TextBlock Text="Сообщение с информацией"/>
-                </Flyout>
-            </Border.ContextFlyout>
+			
+			<ToolTip.Placement>
+				<PlacementMode>Left</PlacementMode>
+			</ToolTip.Placement>
+			
+			<ToolTip.Tip>
+				<TextBlock Text="Сообщение с информацией"/>
+			</ToolTip.Tip>	
+			
 		    <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg" Width="30" Height="30"/>
         </Border>
 		

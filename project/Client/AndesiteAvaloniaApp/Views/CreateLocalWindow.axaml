@@ -7,6 +7,8 @@
 		MaxWidth="500" MaxHeight="300"
         xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
 		x:DataType="vm:CreateLocalWindowViewModel"
+		Title="Создание локальной базы"
+		Icon="avares://AndesiteAvaloniaApp/Assets/Icons/andesite.ico"
         x:Class="AndesiteAvaloniaApp.Views.CreateLocalWindow">
 
 	<Design.DataContext>
@@ -15,7 +17,10 @@
 
 	<DockPanel>
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Bottom">
-			<TextBlock Classes="login" Text="Название"/>
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Classes="login" Text="Название"/>
+				<TextBox Classes="login" Watermark="Название базы..."/>
+			</StackPanel>
 			<Button Classes="login" Content="Создать"/>
 		</StackPanel>
 	</DockPanel>
