@@ -20,12 +20,16 @@
                     <SolidColorBrush x:Key="Accent" Color="#006971"/>
 					
                     <SolidColorBrush x:Key="SecondAccent" Color="#deba52"/>
+                    
+                    <SolidColorBrush x:Key="Secondary" Color="#b1cbcf"/>
 					
                     <SolidColorBrush x:Key="Error" Color="#ba1a1a"/>
 					
                     <SolidColorBrush x:Key="Black" Color="#000000"/>
 					
                     <SolidColorBrush x:Key="White" Color="#FFFFFF"/>
+
+                    <SolidColorBrush x:Key="Grey" Color="#808080"/>
 
                 </ResourceDictionary>
 
@@ -44,12 +48,16 @@
                     <SolidColorBrush x:Key="Accent" Color="#81d3dd"/>
 
                     <SolidColorBrush x:Key="SecondAccent" Color="#deba52"/>
+
+                    <SolidColorBrush x:Key="Secondary" Color="#b1cbcf"/>
 					
 					<SolidColorBrush x:Key="Error" Color="#ffb4ab"/>
 					
 					<SolidColorBrush x:Key="Black" Color="#000000"/>
 					
 					<SolidColorBrush x:Key="White" Color="#FFFFFF"/>
+
+                    <SolidColorBrush x:Key="Grey" Color="#808080"/>
 
                 </ResourceDictionary>
 

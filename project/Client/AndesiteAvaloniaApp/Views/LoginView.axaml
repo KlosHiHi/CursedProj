@@ -13,7 +13,7 @@
     </Design.DataContext>
 
     <DockPanel>
-		
+
         <Border Classes="standart" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
 			
 			<ToolTip.Placement>
@@ -21,13 +21,13 @@
 			</ToolTip.Placement>
 			
 			<ToolTip.Tip>
-				<TextBlock Text="Сообщение с информацией"/>
+				<TextBlock Text="Локальная база - хранится на вашем устройстве. Для синхронизации требуется войти в аккаунт."/>
 			</ToolTip.Tip>	
 			
 		    <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg" Width="30" Height="30"/>
         </Border>
 		
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Bottom">           
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Bottom">
             <Image Source="avares://AndesiteAvaloniaApp/Assets/Icons/andesite-start.png" Width="300" Height="300" Margin="10"/>
 			
 		    <Button Name="CreateLocal" Classes="login" Content="Локальная база" 
@@ -41,5 +41,4 @@
 		</StackPanel>
 		
     </DockPanel>
-
 </UserControl>

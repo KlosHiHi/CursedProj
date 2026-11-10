@@ -9,7 +9,8 @@
 		Icon="avares://AndesiteAvaloniaApp/Assets/Icons/andesite.ico"
         xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
 		x:DataType="vm:SignInWindowViewModel"
-        x:Class="AndesiteAvaloniaApp.Views.SignInWindow">
+        x:Class="AndesiteAvaloniaApp.Views.SignInWindow"
+		Name="Window">
 
 	<Design.DataContext>
 		<vm:SignInWindowViewModel/>
@@ -20,15 +21,15 @@
 			
 			<StackPanel Orientation="Horizontal">
 				<TextBlock Classes="login" Text="Логин"/>
-				<TextBox Classes="login" Watermark="Введите логин..."/>
+				<TextBox Classes="login" PlaceholderText="Введите логин" Text="{Binding Login}"/>
 			</StackPanel>
 			
 			<StackPanel Orientation="Horizontal">
 				<TextBlock Classes="login" Text="Пароль"/>
-				<TextBox Classes="login" Watermark="Введите пароль..."/>
+				<TextBox Classes="login" PlaceholderText="Введите пароль" Text="{Binding Password}"/>
 			</StackPanel>
 			
-			<Button Classes="login" Content="Войти"/>
+			<Button Classes="login" Content="Войти" Command="{Binding SignInCommand}" CommandParameter="{Binding #Window}"/>
 			
 		</StackPanel>
 	</DockPanel>

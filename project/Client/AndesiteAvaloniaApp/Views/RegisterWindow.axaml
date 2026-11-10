@@ -9,7 +9,8 @@
 		Icon="avares://AndesiteAvaloniaApp/Assets/Icons/andesite.ico"
         xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
 		x:DataType="vm:RegisterWindowViewModel"
-        x:Class="AndesiteAvaloniaApp.Views.RegisterWindow">
+        x:Class="AndesiteAvaloniaApp.Views.RegisterWindow"
+		Name="Window">
 
 	<Design.DataContext>
 		<vm:RegisterWindowViewModel/>
@@ -17,11 +18,28 @@
 
 	<DockPanel>
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Bottom">
-			<TextBlock Classes="login" Text="Логин"/>
-			<TextBlock Classes="login" Text="Пароль"/>
-			<TextBlock Classes="login" Text="Подтверждение"/>
-			<TextBlock Classes="login" Text="Email"/>
-			<Button Classes="login" Content="Зарегистрироваться"/>
+
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Classes="login" Text="Логин"/>
+				<TextBox Classes="login" PlaceholderText="Введите логин" Text="{Binding Login}"/>
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Classes="login" Text="Пароль"/>
+				<TextBox Classes="login" PlaceholderText="Введите пароль" PasswordChar="*" Text="{Binding Password}"/>
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Classes="login" Text="Подтверждение" FontSize="11.5"/>
+				<TextBox Classes="login" PlaceholderText="Подтвердите пароль" PasswordChar="*" Text="{Binding CheckPassword}"/>
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Classes="login" Text="Email"/>
+				<TextBox Classes="login" PlaceholderText="Введите email" Text="{Binding Email}"/>
+			</StackPanel>
+
+			<Button Classes="login" Content="Зарегистрироваться" Command="{Binding RegisterCommand}" CommandParameter="{Binding #Window}"/>
 		</StackPanel>
 	</DockPanel>
 

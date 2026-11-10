@@ -9,7 +9,8 @@
 		x:DataType="vm:CreateLocalWindowViewModel"
 		Title="Создание локальной базы"
 		Icon="avares://AndesiteAvaloniaApp/Assets/Icons/andesite.ico"
-        x:Class="AndesiteAvaloniaApp.Views.CreateLocalWindow">
+        x:Class="AndesiteAvaloniaApp.Views.CreateLocalWindow"
+		Name="Window">
 
 	<Design.DataContext>
 		<vm:CreateLocalWindowViewModel/>
@@ -17,11 +18,14 @@
 
 	<DockPanel>
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Bottom">
+
 			<StackPanel Orientation="Horizontal">
 				<TextBlock Classes="login" Text="Название"/>
-				<TextBox Classes="login" Watermark="Название базы..."/>
+				<TextBox Classes="login" PlaceholderText="Введите название базы"  Text="{Binding LocalName}"/>
 			</StackPanel>
-			<Button Classes="login" Content="Создать"/>
+
+			<Button Classes="login" Content="Создать" Command="{Binding CreateLocalCommand}" CommandParameter="{Binding #Window}"/>
+
 		</StackPanel>
 	</DockPanel>
 	

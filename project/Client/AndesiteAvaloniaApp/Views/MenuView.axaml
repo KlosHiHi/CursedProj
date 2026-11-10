@@ -3,11 +3,57 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:help="using:AndesiteAvaloniaApp.Helpers"
              xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
              x:DataType="vm:MenuViewModel"
              x:Class="AndesiteAvaloniaApp.Views.MenuView">
+
     <Design.DataContext>
 		<vm:MenuViewModel/>
     </Design.DataContext>
-  Menu
+
+  <DockPanel>
+	  <DockPanel DockPanel.Dock="Left" Background="{DynamicResource Surface}" Width="{Binding MenuPanelWidth}">  
+      
+        <Border Classes="menu_part" DockPanel.Dock="Bottom">
+            <StackPanel>
+			      <StackPanel Classes="menu_button">
+				      <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
+                      <TextBlock Text="Профиль" IsVisible="{Binding IsOpen}"/>
+                  </StackPanel>
+
+                  <StackPanel Classes="menu_button">
+				      <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
+                      <TextBlock Text="Архив" IsVisible="{Binding IsOpen}"/>
+                  </StackPanel>
+
+                  <StackPanel Classes="menu_button" >
+				      <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
+                      <TextBlock Text="Корзина" IsVisible="{Binding IsOpen}"/>
+                  </StackPanel>
+
+                  <StackPanel Classes="menu_button">
+				      <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
+                      <TextBlock Text="Настройки" IsVisible="{Binding IsOpen}"/>
+                  </StackPanel>
+              </StackPanel>
+          </Border>
+
+          <Border Classes="menu_part" DockPanel.Dock="Top">
+              <Button Classes="burger" Command="{Binding ChangeMenuStateCommand}">
+		        <Image Source="{Binding MenuImage}" Width="50" Height="50"/>
+              </Button>
+          </Border>
+
+          <DockPanel IsVisible="{Binding IsOpen}">
+              <TextBox DockPanel.Dock="Top"/>
+          </DockPanel>
+
+      </DockPanel>
+
+      <DockPanel>
+          
+      </DockPanel>
+
+  </DockPanel>
 </UserControl>

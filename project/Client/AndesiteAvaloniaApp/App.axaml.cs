@@ -15,6 +15,8 @@ namespace AndesiteAvaloniaApp
 
         public override void OnFrameworkInitializationCompleted()
         {
+            ServiceLocator.ConfigureServices();
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 var mainWindow = new MainWindow();
