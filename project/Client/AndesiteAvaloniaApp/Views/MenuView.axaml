@@ -6,7 +6,10 @@
              xmlns:help="using:AndesiteAvaloniaApp.Helpers"
              xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
              x:DataType="vm:MenuViewModel"
-             x:Class="AndesiteAvaloniaApp.Views.MenuView">
+             x:Class="AndesiteAvaloniaApp.Views.MenuView"
+			 xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=clr-namespace:Avalonia.Xaml.Interactivity"
+			 xmlns:ia="clr-namespace:Avalonia.Xaml.Interactivity;assembly=clr-namespace:Avalonia.Xaml.Interactivity"
+			 >
 
     <Design.DataContext>
 		<vm:MenuViewModel/>
@@ -17,7 +20,7 @@
       
         <Border Classes="menu_part" DockPanel.Dock="Bottom">
             <StackPanel>
-			      <StackPanel Classes="menu_button">
+			      <StackPanel Classes="menu_button" PointerPressed="{Binding ChangeWorkPageCommand}">
 				      <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
                       <TextBlock Text="Профиль" IsVisible="{Binding IsOpen}"/>
                   </StackPanel>

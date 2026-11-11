@@ -3,11 +3,12 @@ using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace AndesiteAvaloniaApp.ViewModels
 {
-    public partial class MenuViewModel(Window window) : ViewModelBase
+    public partial class MenuViewModel(Window window, Action action) : ViewModelBase
     {
         private static readonly int _menuPanelOpenWidth = 350;
         private static readonly int _menuPanelCloseWidth = 60;
@@ -19,7 +20,7 @@ namespace AndesiteAvaloniaApp.ViewModels
         private static bool _isOpen = false;
 
         [ObservableProperty]
-        private ViewModelBase _workPage;
+        private ViewModelBase _workPage = ServiceLocator.ServiceProvider.GetRequiredService<NoteListViewModel>();
 
         [ObservableProperty]
         private int _menuPanelWidth = _menuPanelCloseWidth;
@@ -34,6 +35,13 @@ namespace AndesiteAvaloniaApp.ViewModels
             MenuPanelWidth = IsOpen ? _menuPanelCloseWidth : _menuPanelOpenWidth;
 
             IsOpen = !IsOpen;
+        }
+
+
+        [RelayCommand]
+        private void ChangeWorkPage()
+        {
+            _workPage = ServiceLocator.ServiceProvider.GetRequiredService<ProfileViewModel>();
         }
     }
 }

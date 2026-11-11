@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using AndesiteAvaloniaApp.Views;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 
@@ -8,7 +9,9 @@ namespace AndesiteAvaloniaApp.ViewModels
     {
         private readonly Window _mainWindow;
         private readonly LoginViewModel _loginView;
+        private readonly MenuViewModel _menuView;
         public event Action<string>? OnLoginSuccess;
+        public event Action OnLogout;
 
         [ObservableProperty]
         private ViewModelBase _currentPage;
@@ -16,11 +19,13 @@ namespace AndesiteAvaloniaApp.ViewModels
         public MainWindowViewModel(Window window)
         {
             OnLoginSuccess += MainWindowViewModel_OnLoginSuccess;
+            OnLogout += MainWindowViewModel_OnLogout;
             _mainWindow = window;
 
             if (true)
             {
-                CurrentPage = new MenuViewModel(window);
+                _menuView = new MenuViewModel(_mainWindow, OnLogout);
+                CurrentPage = _menuView;
             }
             else
             {
@@ -29,9 +34,14 @@ namespace AndesiteAvaloniaApp.ViewModels
             }
         }
 
+        private void MainWindowViewModel_OnLogout()
+        {
+            CurrentPage = _loginView;
+        }
+
         private void MainWindowViewModel_OnLoginSuccess(string result)
         {
-            CurrentPage = new MenuViewModel(_mainWindow);
+            CurrentPage = _menuView;
         }
     }
 }

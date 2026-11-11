@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 
@@ -24,7 +25,6 @@ namespace AndesiteAvaloniaApp.ViewModels
             if (Activator.CreateInstance(windowType) is Window window)
             {
                 var viewModel = Activator.CreateInstance(viewModelType, action) as ParentLoginViewModel;
-
                 window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 window.DataContext = viewModel;
 

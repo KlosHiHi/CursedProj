@@ -10,14 +10,11 @@ namespace AndesiteAvaloniaApp
         public static void ConfigureServices()
         {
             var services = new ServiceCollection()
-                .AddTransient<MainWindowViewModel>()
-                .AddTransient<LoginViewModel>()
-                .AddTransient<MenuViewModel>()
+                .AddScoped<LoginViewModel>()
+                .AddScoped<MenuViewModel>()
 
-                .AddTransient<ParentLoginViewModel>()
-                .AddTransient<CreateLocalWindowViewModel>()
-                .AddTransient<RegisterWindowViewModel>()
-                .AddTransient<SignInWindowViewModel>()
+                .AddScoped<NoteListViewModel>()
+                .AddScoped<ProfileViewModel>()
                 ;
 
             ServiceProvider = services.BuildServiceProvider();
