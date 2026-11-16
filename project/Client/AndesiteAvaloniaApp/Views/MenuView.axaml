@@ -7,10 +7,15 @@
              xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
              x:DataType="vm:MenuViewModel"
              x:Class="AndesiteAvaloniaApp.Views.MenuView"
-			 xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=clr-namespace:Avalonia.Xaml.Interactivity"
-			 xmlns:ia="clr-namespace:Avalonia.Xaml.Interactivity;assembly=clr-namespace:Avalonia.Xaml.Interactivity"
+			 xmlns:i="using:Avalonia.Xaml.Interactivity"
+			 xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
 			 >
-
+	<i:Interaction.Behaviors>
+		<ia:EventTriggerBehavior EventName="Loaded">
+			<ia:InvokeCommandAction Command="{Binding LoadMenuViewCommand}"/>
+		</ia:EventTriggerBehavior>
+	</i:Interaction.Behaviors>
+	
     <Design.DataContext>
 		<vm:MenuViewModel/>
     </Design.DataContext>
@@ -20,7 +25,14 @@
       
         <Border Classes="menu_part" DockPanel.Dock="Bottom">
             <StackPanel>
-			      <StackPanel Classes="menu_button" PointerPressed="{Binding ChangeWorkPageCommand}">
+			      <StackPanel Classes="menu_button">
+					  
+					  <i:Interaction.Behaviors>
+						  <ia:EventTriggerBehavior EventName="PointerPressed">
+							  <ia:InvokeCommandAction Command="{Binding ChangeWorkPageCommand}"/>
+						  </ia:EventTriggerBehavior>
+					  </i:Interaction.Behaviors>
+					  
 				      <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
                       <TextBlock Text="Профиль" IsVisible="{Binding IsOpen}"/>
                   </StackPanel>
@@ -43,17 +55,34 @@
           </Border>
 
           <Border Classes="menu_part" DockPanel.Dock="Top">
+			  
               <Button Classes="burger" Command="{Binding ChangeMenuStateCommand}">
 		        <Image Source="{Binding MenuImage}" Width="50" Height="50"/>
               </Button>
+			  
           </Border>
 
           <DockPanel IsVisible="{Binding IsOpen}">
-              <TextBox DockPanel.Dock="Top"/>
+              <TextBox Classes="menu" DockPanel.Dock="Top" PlaceholderText="Введите название"/>
+			  
+			  <Border Classes="category">
+				  <StackPanel>
+					  <DockPanel DockPanel.Dock="Top">
+					  
+						  <Button DockPanel.Dock="Right">
+							  <Image Source="{Binding MenuImage}" Width="20" Height="20"/>						  
+						  </Button>
+					  
+						  <TextBox Classes="menu" DockPanel.Dock="Top" PlaceholderText="Введите категорию"/>
+					  
+					  </DockPanel>
+				  </StackPanel>
+			  </Border>
+			  
           </DockPanel>
 
       </DockPanel>
-
+	    <ContentControl Content="{Binding WorkPage}"/>
       <DockPanel>
           
       </DockPanel>

@@ -1,18 +1,17 @@
-﻿using Avalonia.Controls;
+﻿using AndesiteAvaloniaApp.Services;
 using CommunityToolkit.Mvvm.Input;
-using System;
 
 namespace AndesiteAvaloniaApp.ViewModels
 {
-    public partial class ProfileViewModel(Action action) : ViewModelBase
+    public partial class ProfileViewModel(IEditProfileService service) : ViewModelBase
     {
-        private readonly Action _logoutAction = action;
+        private readonly IEditProfileService _editService = service;
 
 
         [RelayCommand]
         private void LogOut()
         {
-            _logoutAction?.Invoke();
+            _editService.CloseSession();
         }
     }
 }

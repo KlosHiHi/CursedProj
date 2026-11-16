@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using AndesiteAvaloniaApp.Services;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -6,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace AndesiteAvaloniaApp.ViewModels
 {
-    public partial class LoginViewModel(Window window, Action<string> action) : ViewModelBase
+    public partial class LoginViewModel(IAuthService authService) : ViewModelBase
     {
-        private readonly Window _mainWindow = window;
+        private readonly IAuthService _authservice = authService;
 
         [RelayCommand]
         private async Task OpenWindow(string name)
@@ -24,11 +25,11 @@ namespace AndesiteAvaloniaApp.ViewModels
 
             if (Activator.CreateInstance(windowType) is Window window)
             {
-                var viewModel = Activator.CreateInstance(viewModelType, action) as ParentLoginViewModel;
+                var viewModel = ServiceLocator.ServiceProvider.GetRequiredService(viewModelType);
                 window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 window.DataContext = viewModel;
 
-                await window.ShowDialog(_mainWindow);
+                await window.ShowDialog(_authservice.MainWindow);
             }
         }
     }

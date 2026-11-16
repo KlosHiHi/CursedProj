@@ -1,6 +1,7 @@
-﻿using System;
+﻿using AndesiteAvaloniaApp.Services;
+using System;
 
 namespace AndesiteAvaloniaApp.ViewModels
 {
-    public partial class ParentLoginViewModel(Action<string> action) : ViewModelBase { }
+    public partial class ParentLoginViewModel(AuthService authService) : ViewModelBase { }
 }

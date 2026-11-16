@@ -24,7 +24,13 @@
 		<Setter Property="Margin" Value="0"/>
 		<Setter Property="Padding" Value="0"/>
 	</Style>
-
+	
+	<Style Selector="Border.category">
+		<Setter Property="BorderBrush" Value="{DynamicResource TextPrimary}"/>
+		<Setter Property="BorderThickness" Value="2"/>
+		<Setter Property="Margin" Value="10"/>
+	</Style>
+	
 	<Style Selector="StackPanel.menu_button TextBlock">
 		<Setter Property="Foreground" Value="{DynamicResource Accent}"/>
 		<Setter Property="VerticalAlignment" Value="Center"/>
@@ -96,6 +102,11 @@
 	<Style Selector="TextBox">
 		<Setter Property="FontFamily" Value="#Roboto"/>
 		<Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+	</Style>
+	
+	<Style Selector="TextBox.menu">
+		<Setter Property="PlaceholderForeground" Value="{DynamicResource Grey}"/>
+		<Setter Property="Margin" Value="3"/>
 	</Style>
 
 	<Style Selector="TextBox.login">

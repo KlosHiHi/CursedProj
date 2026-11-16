@@ -8,13 +8,12 @@ using System;
 
 namespace AndesiteAvaloniaApp.ViewModels
 {
-    public partial class MenuViewModel(Window window, Action action) : ViewModelBase
+    public partial class MenuViewModel() : ViewModelBase
     {
         private static readonly int _menuPanelOpenWidth = 350;
         private static readonly int _menuPanelCloseWidth = 60;
         private static readonly Bitmap? _openImage = ImageHelper.LoadFromResource(new Uri("avares://AndesiteAvaloniaApp/Assets/Icons/andesite-start.png"));
         private static readonly Bitmap _closeImage = ImageHelper.LoadFromResource(new Uri("avares://AndesiteAvaloniaApp/Assets/Icons/andesite-finish.png"));
-        private readonly Window _mainWindow = window;
 
         [ObservableProperty]
         private static bool _isOpen = false;
@@ -41,7 +40,16 @@ namespace AndesiteAvaloniaApp.ViewModels
         [RelayCommand]
         private void ChangeWorkPage()
         {
-            _workPage = ServiceLocator.ServiceProvider.GetRequiredService<ProfileViewModel>();
+            WorkPage = ServiceLocator.ServiceProvider.GetRequiredService<ProfileViewModel>();
+        }
+
+        [RelayCommand]
+        private void LoadMenuView()
+        {
+            MenuImage = _closeImage;
+            MenuPanelWidth = _menuPanelCloseWidth;
+            IsOpen = false;
+            WorkPage = ServiceLocator.ServiceProvider.GetRequiredService<NoteListViewModel>();
         }
     }
 }

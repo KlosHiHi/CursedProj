@@ -1,8 +1,10 @@
+using AndesiteAvaloniaApp.Services;
 using AndesiteAvaloniaApp.ViewModels;
 using AndesiteAvaloniaApp.Views;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AndesiteAvaloniaApp
 {
@@ -21,7 +23,10 @@ namespace AndesiteAvaloniaApp
             {
                 var mainWindow = new MainWindow();
 
-                mainWindow.DataContext = new MainWindowViewModel(mainWindow);
+                var authService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthService>();
+                authService.MainWindow = mainWindow;
+
+                mainWindow.DataContext = new MainWindowViewModel();
 
                 desktop.MainWindow = mainWindow;
             }

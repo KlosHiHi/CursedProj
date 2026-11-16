@@ -1,13 +1,13 @@
-﻿using Avalonia.Controls;
+﻿using AndesiteAvaloniaApp.Services;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
 
 namespace AndesiteAvaloniaApp.ViewModels
 {
-    public partial class SignInWindowViewModel(Action<string> action) : ParentLoginViewModel(action)
+    public partial class SignInWindowViewModel(IAuthService authService) : ViewModelBase
     {
-        private readonly Action<string> _loginAction = action;
+        private readonly IAuthService _authservice = authService;
 
         [ObservableProperty]
         private string? _login;
@@ -18,8 +18,7 @@ namespace AndesiteAvaloniaApp.ViewModels
         [RelayCommand]
         private void SignIn(Window window)
         {
-            _loginAction?.Invoke("sign_in");
-            window.Close();
+            _authservice.CompleteWork(window, "sign_in");
         }
     }
 }
