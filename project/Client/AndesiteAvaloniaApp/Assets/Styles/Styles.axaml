@@ -7,6 +7,19 @@
 		<Setter Property="Background" Value="{DynamicResource AppBackground}"/>
 	</Style>
 	
+	<Style Selector="TextBlock.main_block">
+		<Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+		<Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="FontSize" Value="35"/>
+		<Setter Property="Margin" Value="3"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Cursor" Value="Hand"/>
+	</Style>
+
+	<Style Selector="TextBlock.main_block:pointerover">
+		<Setter Property="Opacity" Value="0.6"/>
+	</Style>
+	
 	<Style Selector="StackPanel.menu_button">
 		<Setter Property="Orientation" Value="Horizontal"/>
 		<Setter Property="VerticalAlignment" Value="Center"/>
@@ -71,12 +84,12 @@
 		<Setter Property="Margin" Value="5"/>
 	</Style>
 
-	<Style Selector="Button.burger:pointerover /template/ Border#PART_BorderElement">
-		<Setter Property="Background" Value="Transparent"/>
+	<Style Selector="Button.burger:pointerover /template/ ContentPresenter#PART_BorderElement">
+		<Setter Property="Background" Value="Red"/>
 		<Setter Property="BorderBrush" Value="Transparent"/>
 	</Style>
 
-	<Style Selector="Button.burger:pressed /template/ Border#PART_BorderElement">
+	<Style Selector="Button.burger:pressed /template/ ContentPresenter#PART_BorderElement">
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="BorderBrush" Value="Transparent"/>
 		<Setter Property="Opacity" Value="1"/>

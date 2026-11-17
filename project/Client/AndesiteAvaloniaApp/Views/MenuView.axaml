@@ -25,11 +25,11 @@
       
         <Border Classes="menu_part" DockPanel.Dock="Bottom">
             <StackPanel>
-			      <StackPanel Classes="menu_button">
+			      <StackPanel Classes="menu_button" Name="Profile">
 					  
 					  <i:Interaction.Behaviors>
 						  <ia:EventTriggerBehavior EventName="PointerPressed">
-							  <ia:InvokeCommandAction Command="{Binding ChangeWorkPageCommand}"/>
+							  <ia:InvokeCommandAction Command="{Binding OpenProfileCommand}"/>
 						  </ia:EventTriggerBehavior>
 					  </i:Interaction.Behaviors>
 					  
@@ -37,17 +37,38 @@
                       <TextBlock Text="Профиль" IsVisible="{Binding IsOpen}"/>
                   </StackPanel>
 
-                  <StackPanel Classes="menu_button">
+                  <StackPanel Classes="menu_button" Name="Archive">
+
+					  <i:Interaction.Behaviors>
+						  <ia:EventTriggerBehavior EventName="PointerPressed">
+							  <ia:InvokeCommandAction Command="{Binding OpenArchiveCommand}"/>
+						  </ia:EventTriggerBehavior>
+					  </i:Interaction.Behaviors>
+					  
 				      <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
                       <TextBlock Text="Архив" IsVisible="{Binding IsOpen}"/>
                   </StackPanel>
 
-                  <StackPanel Classes="menu_button" >
+                  <StackPanel Classes="menu_button" Name="Trash">
+
+					  <i:Interaction.Behaviors>
+						  <ia:EventTriggerBehavior EventName="PointerPressed">
+							  <ia:InvokeCommandAction Command="{Binding OpenTrashCommand}"  CommandParameter="{Binding $self.Name}"/>
+						  </ia:EventTriggerBehavior>
+					  </i:Interaction.Behaviors>
+					  
 				      <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
                       <TextBlock Text="Корзина" IsVisible="{Binding IsOpen}"/>
                   </StackPanel>
 
-                  <StackPanel Classes="menu_button">
+                  <StackPanel Classes="menu_button" Name="Setting">
+
+					  <i:Interaction.Behaviors>
+						  <ia:EventTriggerBehavior EventName="PointerPressed">
+							  <ia:InvokeCommandAction Command="{Binding OpenSettingCommand}"  CommandParameter="{Binding $self.Name}"/>
+						  </ia:EventTriggerBehavior>
+					  </i:Interaction.Behaviors>
+					  
 				      <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
                       <TextBlock Text="Настройки" IsVisible="{Binding IsOpen}"/>
                   </StackPanel>
@@ -55,10 +76,12 @@
           </Border>
 
           <Border Classes="menu_part" DockPanel.Dock="Top">
-			  
-              <Button Classes="burger" Command="{Binding ChangeMenuStateCommand}">
-		        <Image Source="{Binding MenuImage}" Width="50" Height="50"/>
-              </Button>
+			  <DockPanel>
+				  <Button DockPanel.Dock="Left" Classes="burger" Command="{Binding ChangeMenuStateCommand}">
+					  <Image Source="{Binding MenuImage}" Width="50" Height="50"/>
+				  </Button>
+				  <TextBlock Classes="main_block" Text="АНДЕЗИТ" IsVisible="{Binding IsOpen}"/>
+			  </DockPanel>
 			  
           </Border>
 

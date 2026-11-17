@@ -20,6 +20,9 @@ namespace AndesiteAvaloniaApp
 
                 .AddScoped<NoteListViewModel>()
                 .AddScoped<ProfileViewModel>()
+                .AddScoped<ArchiveViewModel>()
+                .AddScoped<TrashViewModel>()
+                .AddScoped<SettingViewModel>()
 
                 .AddScoped<IAuthService, AuthService>()
                 .AddScoped<IEditProfileService, EditProfileService>()

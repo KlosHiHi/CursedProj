@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Xml.Linq;
 
 namespace AndesiteAvaloniaApp.ViewModels
 {
@@ -36,11 +37,28 @@ namespace AndesiteAvaloniaApp.ViewModels
             IsOpen = !IsOpen;
         }
 
-
         [RelayCommand]
-        private void ChangeWorkPage()
+        private void OpenProfile()
         {
             WorkPage = ServiceLocator.ServiceProvider.GetRequiredService<ProfileViewModel>();
+        }
+
+        [RelayCommand]
+        private void OpenSetting()
+        {
+            WorkPage = ServiceLocator.ServiceProvider.GetRequiredService<SettingViewModel>();
+        }
+
+        [RelayCommand]
+        private void OpenArchive()
+        {
+            WorkPage = ServiceLocator.ServiceProvider.GetRequiredService<ArchiveViewModel>();
+        }
+
+        [RelayCommand]
+        private void OpenTrash()
+        {
+            WorkPage = ServiceLocator.ServiceProvider.GetRequiredService<TrashViewModel>();
         }
 
         [RelayCommand]
