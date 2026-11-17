@@ -1,33 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OxideClassLibrary.Models;
 
 namespace OxideClassLibrary.Contexts;
 
 public partial class OxideDbContext : DbContext
 {
-    public OxideDbContext()
-    {
-    }
-
-    public OxideDbContext(DbContextOptions<OxideDbContext> options)
-        : base(options)
-    {
-    }
+    public OxideDbContext() { }
+    public OxideDbContext(DbContextOptions<OxideDbContext> options) : base(options) { }
 
     public virtual DbSet<Category> Categories { get; set; }
-
     public virtual DbSet<Comment> Comments { get; set; }
-
     public virtual DbSet<Draft> Drafts { get; set; }
-
     public virtual DbSet<Note> Notes { get; set; }
-
-    public virtual DbSet<Role> Roles { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
-
     public virtual DbSet<UserNote> UserNotes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -143,18 +128,6 @@ public partial class OxideDbContext : DbContext
                 .HasConstraintName("fk_note_category");
         });
 
-        modelBuilder.Entity<Role>(entity =>
-        {
-            entity.HasKey(e => e.RoleId).HasName("PRIMARY");
-
-            entity.ToTable("role");
-
-            entity.Property(e => e.RoleId).HasColumnName("role_id");
-            entity.Property(e => e.Name)
-                .HasMaxLength(20)
-                .HasColumnName("name");
-        });
-
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("PRIMARY");
@@ -235,23 +208,14 @@ public partial class OxideDbContext : DbContext
 
             entity.HasIndex(e => e.NoteId, "fk_user_notes_notes_idx");
 
-            entity.HasIndex(e => e.RoleId, "fk_user_notes_roleid_idx");
-
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.NoteId).HasColumnName("note_id");
-            entity.Property(e => e.RoleId)
-                .HasDefaultValueSql("'1'")
-                .HasColumnName("role_id");
+            entity.Property(e => e.Role).HasMaxLength(30).HasColumnName("role");
 
             entity.HasOne(d => d.Note).WithMany(p => p.UserNotes)
                 .HasForeignKey(d => d.NoteId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_user_notes_noteid");
-
-            entity.HasOne(d => d.Role).WithMany(p => p.UserNotes)
-                .HasForeignKey(d => d.RoleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_user_notes_roleid");
 
             entity.HasOne(d => d.User).WithMany(p => p.UserNotes)
                 .HasForeignKey(d => d.UserId)

@@ -9,11 +9,9 @@ public partial class UserNote
 
     public Guid NoteId { get; set; }
 
-    public int RoleId { get; set; }
+    public string Role { get; set; } = null!;
 
     public virtual Note Note { get; set; } = null!;
-
-    public virtual Role Role { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
 }

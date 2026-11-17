@@ -6,17 +6,13 @@ namespace OxideClassLibrary.Models;
 public partial class User
 {
     public Guid UserId { get; set; }
-
     public string Login { get; set; } = null!;
-
     public string Password { get; set; } = null!;
 
     public DateTime CreateTime { get; set; }
-
     public DateTime LastActiveTime { get; set; }
 
     public string? Email { get; set; }
-
     public bool IsVerify { get; set; }
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();

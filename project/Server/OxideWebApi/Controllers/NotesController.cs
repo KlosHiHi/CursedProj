@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using OxideClassLibrary.Models;
 using OxideClassLibrary.Contexts;
+using OxideClassLibrary.DTOs;
+using OxideClassLibrary.Models;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -13,29 +15,86 @@ public class NotesController : ControllerBase
         _context = context;
     }
 
-    // GET: api/Note
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Note>>> GetNote()
+    [HttpGet("Active/{id}")]
+    //[Authorize]
+    [AllowAnonymous]
+    public async Task<ActionResult<IEnumerable<NoteDto>>> GetActiveNotes(Guid id)
     {
-        return await _context.Notes.ToListAsync();
+        var activeNotes = _context.UserNotes
+            .Where(un => un.UserId == id
+                && !un.Note.IsArhived
+                && !un.Note.IsDeleted)
+            .Select(un => new NoteDto
+            {
+                NoteId = un.Note.NoteId,
+                Title = un.Note.Title,
+                Content = un.Note.Content,
+                Role = un.Role,
+                CategoryId = un.Note.CategoryId,
+                IsCommented = un.Note.IsCommented,
+                CreationTime = un.Note.CreationTime,
+                LastChangeTime = un.Note.LastChangeTime,
+            })
+            .ToListAsync();
+
+        return await activeNotes;
     }
 
-    // GET: api/Note/5
+    [HttpGet("Archive/{id}")]
+    [Authorize]
+    public async Task<ActionResult<IEnumerable<NoteDto>>> GetArchiveNotes(Guid id)
+    {
+        var archiveNotes = _context.UserNotes
+            .Where(un => un.UserId == id
+                && un.Note.IsArhived)
+            .Select(un => new NoteDto
+            {
+                NoteId = un.Note.NoteId,
+                Title = un.Note.Title,
+                Content = un.Note.Content,
+                Role = un.Role,
+                CategoryId = un.Note.CategoryId,
+                IsCommented = un.Note.IsCommented,
+                CreationTime = un.Note.CreationTime,
+                LastChangeTime = un.Note.LastChangeTime,
+            })
+            .ToListAsync();
+
+        return await archiveNotes;
+    }
+
+    [HttpGet("Trash/{id}")]
+    [AllowAnonymous]
+    public async Task<ActionResult<IEnumerable<NoteDto>>> GetTrashNotes(Guid id)
+    {
+        var trashNotes = _context.UserNotes
+            .Where(un => un.UserId == id
+                && un.Note.IsDeleted)
+            .Select(un => new NoteDto
+            {
+                NoteId = un.Note.NoteId,
+                Title = un.Note.Title,
+                Content = un.Note.Content,
+                Role = un.Role,
+                CategoryId = un.Note.CategoryId,
+                IsCommented = un.Note.IsCommented,
+                CreationTime = un.Note.CreationTime,
+                LastChangeTime = un.Note.LastChangeTime,
+            })
+            .ToListAsync();
+
+        return await trashNotes;
+    }
+
     [HttpGet("{noteid}")]
     public async Task<ActionResult<Note>> GetNote(System.Guid noteid)
     {
         var note = await _context.Notes.FindAsync(noteid);
 
-        if (note == null)
-        {
-            return NotFound();
-        }
-
-        return note;
+        return note is null ? NotFound() : note;
     }
 
     // PUT: api/Note/5
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{noteid}")]
     public async Task<IActionResult> PutNote(System.Guid? noteid, Note note)
     {

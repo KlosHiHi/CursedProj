@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OxideClassLibrary.DTOs;
+using OxideClassLibrary.Models;
 using OxideWebApi.Services;
+using OxideClassLibrary.Extensions;
 
 namespace OxideWebApi.Controllers
 {
@@ -13,17 +14,27 @@ namespace OxideWebApi.Controllers
         private readonly LoginService _service = service;
 
         [AllowAnonymous]
-        [HttpPost("authorize")]
-        public async Task<ActionResult<string>> AuthEmployer(LoginRequest loginData)
+        [HttpPost("Authorize")]
+        public async Task<ActionResult<string>> AuthUser(LoginRequest loginData)
         {
-            var login = loginData.Login;
-            var password = loginData.Password;
-
-            var result = await _service.AuthEmployerAsync(login, password);
+            var result = await _service.AuthUserAsync(loginData);
 
             return result is null
                 ? Unauthorized()
                 : result;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("Register")]
+        public async Task<ActionResult<UserData>> RegistrationUser(RegistrationRequest registrationData)
+        {
+            var user = await _service.RegistrateUser(registrationData);
+
+            var responce = user?.ToDto();
+
+            return (user is null)
+                ? BadRequest()
+                : Created("", responce);
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace OxideClassLibrary.Models;
+﻿namespace OxideClassLibrary.Models;
 
 public partial class Note
 {
