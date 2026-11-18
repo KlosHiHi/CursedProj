@@ -7,10 +7,11 @@ namespace AndesiteAvaloniaApp.Options
         static HttpClientOption()
         {
             Client.DefaultRequestHeaders.Authorization
-                = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "token");
+                = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", TokenStorage.Instance.Token);
         }
 
         public static HttpClient Client { get; private set; } = new();
-        public static string BaseUrl { get; private set; } = "https://localhost:7039/api/";
+        //public static string BaseUrl { get; private set; } = "https://localhost:2505/api/";
+        public static string BaseUrl { get; private set; } = "https://localhost:7122/api/";
     }
 }

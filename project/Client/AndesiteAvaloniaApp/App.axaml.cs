@@ -18,6 +18,7 @@ namespace AndesiteAvaloniaApp
         public override void OnFrameworkInitializationCompleted()
         {
             ServiceLocator.ConfigureServices();
+            TokenStorage.Instance.Load();
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {

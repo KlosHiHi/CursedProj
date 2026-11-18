@@ -1,10 +1,11 @@
-using OxideClassLibrary.Contexts;
-using Scalar.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using OxideWebApi.Contexts;
 using OxideWebApi.Services;
+using Scalar.AspNetCore;
+using System.Security.Claims;
+using System.Text;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,9 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 var secretJwtKey = new SymmetricSecurityKey(
     Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]!));
 
-var connectionString 
-    = builder.Configuration.GetConnectionString("OxideDbContext") 
-    ?? throw new InvalidOperationException("Connection string 'OxideDbContext' not found.");
+var connectionString
+    = builder.Configuration.GetConnectionString("OxideDbConnection")
+    ?? throw new InvalidOperationException("Connection string 'OxideDbConnection' not found.");
 
 builder.Services.AddDbContext<OxideDbContext>(options => options.UseMySQL(connectionString));
 
@@ -56,11 +57,26 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseAuthentication();
 
 app.MapControllers();
+
+app.MapGet("/api", () =>
+{
+    return Results.Ok(new
+    {
+        Message = "API работает, ура!",
+        Date = DateTime.UtcNow
+    });
+});
 
 app.Run();

@@ -1,22 +1,25 @@
-﻿using AndesiteAvaloniaApp.Services;
+﻿using AndesiteAvaloniaApp.Options;
+using AndesiteAvaloniaApp.Services;
 using AndesiteAvaloniaApp.Views;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace AndesiteAvaloniaApp.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
-        private readonly Window _mainWindow;
         private LoginViewModel _loginView = null!;
         private MenuViewModel _menuView = null!;
         public event Action<string>? OnLoginSuccess;
-        public event Action OnLogout;
+        public event Action? OnLogout;
 
         [ObservableProperty]
-        private ViewModelBase _currentPage;
+        private ViewModelBase? _currentPage;
 
         public MainWindowViewModel()
         {
@@ -24,9 +27,9 @@ namespace AndesiteAvaloniaApp.ViewModels
             StartSession();
         }
 
-        private void StartSession()
+        private async void StartSession()
         {
-            if (true)
+            if (await CheckAuth())
             {
                 CurrentPage = _menuView;
             }
@@ -49,6 +52,25 @@ namespace AndesiteAvaloniaApp.ViewModels
 
             _menuView = ServiceLocator.ServiceProvider.GetRequiredService<MenuViewModel>();
             _loginView = ServiceLocator.ServiceProvider.GetRequiredService<LoginViewModel>();
+        }
+
+        private static async Task<bool> CheckAuth()
+        {
+            var jwt = TokenStorage.Instance.Token;
+
+            if (String.IsNullOrEmpty(jwt))
+                return false;
+
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{HttpClientOption.BaseUrl}Login/CheckToken");
+
+            var responce = HttpClientOption.Client.Send(request);
+
+            return responce.StatusCode switch
+            {
+                HttpStatusCode.Unauthorized => false,
+                HttpStatusCode.NoContent => true,
+                _ => false
+            };
         }
 
         private void MainWindowViewModel_OnLogout()

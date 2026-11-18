@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OxideClassLibrary.Models;
-using OxideClassLibrary.Contexts;
+using OxideWebApi.Contexts;
 
 [Route("api/[controller]")]
 [ApiController]

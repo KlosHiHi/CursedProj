@@ -36,5 +36,10 @@ namespace OxideWebApi.Controllers
                 ? BadRequest()
                 : Created("", responce);
         }
+
+        [Authorize]
+        [HttpGet("CheckToken")]
+        public async Task<ActionResult<bool>> ValidateToken()
+            => NoContent();
     }
 }

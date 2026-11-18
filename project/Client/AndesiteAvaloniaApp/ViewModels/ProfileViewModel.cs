@@ -11,6 +11,7 @@ namespace AndesiteAvaloniaApp.ViewModels
         [RelayCommand]
         private void LogOut()
         {
+            TokenStorage.Instance.Clear();
             _editService.CloseSession();
         }
     }

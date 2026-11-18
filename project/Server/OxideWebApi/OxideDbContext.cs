@@ -1,12 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OxideClassLibrary.Models;
 
-namespace OxideClassLibrary.Contexts;
+namespace OxideWebApi.Contexts;
 
 public partial class OxideDbContext : DbContext
 {
     public OxideDbContext() { }
-    public OxideDbContext(DbContextOptions<OxideDbContext> options) : base(options) { }
+    public OxideDbContext(DbContextOptions<OxideDbContext> options, IConfiguration configuration) : base(options)
+    {
+        _configuration = configuration;
+    }
+
+    private readonly IConfiguration _configuration = null!;
 
     public virtual DbSet<Category> Categories { get; set; }
     public virtual DbSet<Comment> Comments { get; set; }
@@ -16,7 +21,7 @@ public partial class OxideDbContext : DbContext
     public virtual DbSet<UserNote> UserNotes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySQL("Server=localhost;Port=3306;Database=oxide_db;User=root;Password=KHghxrigroot1");
+        => optionsBuilder.UseMySQL(_configuration["ConnectionStrings:OxideDbConnection"]!);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

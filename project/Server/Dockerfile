@@ -28,7 +28,10 @@ RUN dotnet publish "./OxideWebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publis
 # Этот этап используется в рабочей среде или при запуске из VS в обычном режиме (по умолчанию, когда конфигурация отладки не используется)
 FROM base AS final
 WORKDIR /app
-EXPOSE 8080
 
 COPY --from=publish /app/publish .
+
+ENV ASPNETCORE_URLS=http://+:8080
+EXPOSE 8080
+
 ENTRYPOINT ["dotnet", "OxideWebApi.dll"]
