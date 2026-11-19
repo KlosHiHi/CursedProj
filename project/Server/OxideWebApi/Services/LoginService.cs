@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using OxideWebApi.Contexts;
 using OxideClassLibrary.DTOs;
 using OxideClassLibrary.Models;
+using OxideWebApi.Contexts;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -13,6 +13,7 @@ namespace OxideWebApi.Services
     public interface ILoginService
     {
         Task<string?> AuthUserAsync(LoginRequest loginData);
+        Task<bool> CheckLoginAsync(string newLogin);
         Task<User?> RegistrateUser(RegistrationRequest registationData);
     }
 
@@ -69,7 +70,7 @@ namespace OxideWebApi.Services
         private string GenerateToken(string login, Guid id)
         {
             var secretJwtKey = new SymmetricSecurityKey(
-                Encoding.ASCII.GetBytes(configuration["Jwt:Key"]!));
+                Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!));
 
             var credentials = new SigningCredentials(secretJwtKey, SecurityAlgorithms.HmacSha256);
 
@@ -82,11 +83,16 @@ namespace OxideWebApi.Services
                 issuer: configuration["Jwt:Issuer"],
                 audience: configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddSeconds(double.Parse(configuration["Jwt:LifeTimeDays"]!)),
+                expires: DateTime.Now.AddSeconds(double.Parse(configuration["Jwt:LifeTimeDays"]!)),
                 signingCredentials: credentials
             );
 
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
+
+        public async Task<bool> CheckLoginAsync(string newLogin)
+            => !(await _context.Users
+                .Select(u => u.Login).ToListAsync())
+                    .Contains(newLogin);
     }
 }

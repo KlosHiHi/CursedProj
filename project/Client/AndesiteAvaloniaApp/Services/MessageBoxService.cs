@@ -1,34 +1,36 @@
-﻿//using MsBox.Avalonia;
-//using MsBox.Avalonia.Enums;
+﻿
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 using System.Threading.Tasks;
 
 namespace AndesiteAvaloniaApp.Services
 {
-
     public static class MessageBoxService
     {
-        public static async Task ShowInfo() { }
-        public static async Task ShowError() { }
-        public static async Task ShowSuccess() { }
-        //    public static async Task<ButtonResult> ShowInfo(string message, ButtonEnum button = ButtonEnum.Ok, Icon icon = Icon.Info)
-        //    {
-        //        var msgBox = MessageBoxManager.GetMessageBoxStandard("Предупреждение", message, button, icon);
+        public static async Task ShowSimpleMessageBox(string message = "", MsgBoxType msgBoxType = MsgBoxType.None, string title = "", ButtonEnum button = ButtonEnum.Ok, Icon icon = Icon.None)
+        {
+            var msgBox = msgBoxType switch
+            {
+                MsgBoxType.Info => MessageBoxManager.GetMessageBoxStandard("Информация", message, button, Icon.Info),
 
-        //        return await msgBox.ShowAsync();
-        //    }
+                MsgBoxType.Warning => MessageBoxManager.GetMessageBoxStandard("Предупреждение", message, button, Icon.Warning),
 
-        //    public static async Task<ButtonResult> ShowError(string message, ButtonEnum button = ButtonEnum.Ok, Icon icon = Icon.Error)
-        //    {
-        //        var msgBox = MessageBoxManager.GetMessageBoxStandard("Ошибка", message, button, icon);
+                MsgBoxType.Error => MessageBoxManager.GetMessageBoxStandard("Ошибка", message, button, Icon.Error),
 
-        //        return await msgBox.ShowAsync();
-        //    }
+                MsgBoxType.Success => MessageBoxManager.GetMessageBoxStandard("Успех", message, button, Icon.Success),
 
-        //    public static async Task<ButtonResult> ShowSuccess(string message, ButtonEnum button = ButtonEnum.Ok, Icon icon = Icon.Success)
-        //    {
-        //        var msgBox = MessageBoxManager.GetMessageBoxStandard("Успех", message, button, icon);
+                _ => MessageBoxManager.GetMessageBoxStandard(title, message, button, icon),
+            };
 
-        //        return await msgBox.ShowAsync();
-        //    }
+            await msgBox.ShowAsync();
+        }
+    }
+    public enum MsgBoxType
+    {
+        None,
+        Info,
+        Warning,
+        Error,
+        Success
     }
 }

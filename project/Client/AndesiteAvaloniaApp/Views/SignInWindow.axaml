@@ -21,12 +21,12 @@
 			
 			<StackPanel Orientation="Horizontal">
 				<TextBlock Classes="login" Text="Логин"/>
-				<TextBox Classes="login" PlaceholderText="Введите логин" Text="{Binding Login}"/>
+				<TextBox Classes="login" PlaceholderText="Введите логин" MaxLength="45" Text="{Binding Login}"/>
 			</StackPanel>
 			
 			<StackPanel Orientation="Horizontal">
 				<TextBlock Classes="login" Text="Пароль"/>
-				<TextBox Classes="login" PlaceholderText="Введите пароль" PasswordChar="*" Text="{Binding Password}"/>
+				<TextBox Classes="login" PlaceholderText="Введите пароль" MaxLength="20" PasswordChar="*" Text="{Binding Password}"/>
 			</StackPanel>
 			
 			<Button Classes="login" Content="Войти" Command="{Binding SignInCommand}" CommandParameter="{Binding #Window}"/>

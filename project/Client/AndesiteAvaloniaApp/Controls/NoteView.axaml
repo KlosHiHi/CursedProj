@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:i="using:Avalonia.Xaml.Interactivity"
+			 xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
+             x:DataType="vm:NoteViewModel"
+             x:Class="AndesiteAvaloniaApp.Controls.NoteView">
+
+	<Design.DataContext>
+		<vm:NoteViewModel/>
+	</Design.DataContext>
+
+    <Border Background="{DynamicResource SurfaceHigh}" CornerRadius="20" Padding="18" Margin="8">
+        <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding IsMerge}" Value="True">
+                <ia:ChangePropertyAction PropertyName="BorderBrush" Value="{DynamicResource SecondAccent}"/>
+                <ia:ChangePropertyAction PropertyName="BorderThickness" Value="3"/>
+            </ia:DataTriggerBehavior>
+        </i:Interaction.Behaviors>
+        <Grid RowDefinitions="Auto,*">
+            <TextBlock Text="{Binding Title}" FontSize="19" FontWeight="Bold" 
+                       Foreground="{DynamicResource Accent}" TextTrimming="CharacterEllipsis"/>
+
+            <TextBlock Grid.Row="1" Margin="0,20,0,0" Text="{Binding Content}"
+                TextWrapping="Wrap" MaxLines="12" Foreground="{DynamicResource TextPrimary}"/>
+        </Grid>
+    </Border>
+</UserControl>

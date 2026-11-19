@@ -15,16 +15,17 @@ namespace AndesiteAvaloniaApp.ViewModels
         [ObservableProperty]
         [NotifyDataErrorInfo]
         [Required(ErrorMessage = "Логин обязательно ввести")]
-        [StringLength(50, MinimumLength = 4, ErrorMessage = "Длина от 4 до 50 символов")]
+        [StringLength(50, MinimumLength = 4, ErrorMessage = "Минимальная длина логина 4 символа")]
         private string? _login;
 
         [ObservableProperty]
         [NotifyDataErrorInfo]
         [Required(ErrorMessage = "Пароль обязательно ввести")]
-        [StringLength(20, MinimumLength = 4, ErrorMessage = "Длина от 4 до 20 символов")]
+        [RegularExpression("(?=.*\\d)(?=.*[@%&$\\-_!#^*+=])(?=.*[a-z])(?=.*[A-Z]).{6,20}$", ErrorMessage = "Пароль слишком простой")]
         private string? _password;
 
         [ObservableProperty]
+        [Required(ErrorMessage = "Повторите пароль")]
         private string? _checkPassword;
 
         [ObservableProperty]
@@ -39,31 +40,40 @@ namespace AndesiteAvaloniaApp.ViewModels
             if (!await IsValidData())
                 return;
 
+            var checkLoginResponse = await _authservice.CheckLogin(Login!);
+
+            if (!checkLoginResponse)
+            {
+                await MessageBoxService.ShowSimpleMessageBox("Указанный логин занят", MsgBoxType.Error);
+                return;
+            }
+
             var response = await _authservice.RegisterUserAsync(Login!, Password!, Email);
 
             if (response is null)
             {
-                await MessageBoxService.ShowError();
+                await MessageBoxService.ShowSimpleMessageBox("Введённые данные не верны", MsgBoxType.Error);
+                return;
             }
             else
             {
-
+                await MessageBoxService.ShowSimpleMessageBox("Вы успешно зарегистрированы", MsgBoxType.Success);
             }
 
             var token = await _authservice.AuthUserAsync(Login!, Password!);
 
-            if (token is null)
+            if (String.IsNullOrEmpty(token))
             {
-                await MessageBoxService.ShowError();
+                await MessageBoxService.ShowSimpleMessageBox("При авторизации произошла ошибка", MsgBoxType.Error);
+                return;
             }
             else
             {
                 TokenStorage.Instance.Token = token;
-                _authservice.CompleteWork(window, "sign_in");
+                _authservice.CompleteWork(window, "register");
             }
-
-            _authservice.CompleteWork(window, "register");
         }
+
         private async Task<bool> IsValidData()
         {
             string login = Login ?? "";
@@ -72,19 +82,19 @@ namespace AndesiteAvaloniaApp.ViewModels
 
             if (String.IsNullOrEmpty(login))
             {
-                await MessageBoxService.ShowInfo();
+                await MessageBoxService.ShowSimpleMessageBox("Поле логина не должно быть пустым", MsgBoxType.Info);
                 return false;
             }
 
             if (String.IsNullOrEmpty(password))
             {
-                await MessageBoxService.ShowInfo();
+                await MessageBoxService.ShowSimpleMessageBox("Поле пароль не должно быть пустым", MsgBoxType.Info);
                 return false;
             }
 
             if (password != checkPassword)
             {
-                await MessageBoxService.ShowInfo();
+                await MessageBoxService.ShowSimpleMessageBox("Пароли не совпадают", MsgBoxType.Info);
                 return false;
             }
 

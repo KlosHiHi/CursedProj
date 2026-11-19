@@ -10,7 +10,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 var secretJwtKey = new SymmetricSecurityKey(
-    Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]!));
+    Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!));
 
 var connectionString
     = builder.Configuration.GetConnectionString("OxideDbConnection")
@@ -23,9 +23,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         options.TokenValidationParameters = new()
         {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = secretJwtKey,
-
             ValidateIssuer = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
 
@@ -33,18 +30,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidAudience = builder.Configuration["Jwt:Audience"],
 
             ValidateLifetime = true,
-            ValidAlgorithms = [SecurityAlgorithms.HmacSha256],
-
             ClockSkew = TimeSpan.Zero,
+
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = secretJwtKey,
+
+            ValidAlgorithms = [SecurityAlgorithms.HmacSha256],
         };
     });
+
 builder.Services.AddAuthorization();
 
-builder.Services.AddScoped<LoginService>();
+builder.Services.AddTransient<ILoginService, LoginService>();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
-
 
 var app = builder.Build();
 
@@ -62,8 +62,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

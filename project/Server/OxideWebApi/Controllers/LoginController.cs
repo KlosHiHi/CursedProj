@@ -9,9 +9,29 @@ namespace OxideWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController(LoginService service) : ControllerBase
+    public class LoginController(ILoginService service) : ControllerBase
     {
-        private readonly LoginService _service = service;
+        private readonly ILoginService _service = service;
+
+        [AllowAnonymous]
+        [HttpGet("IsLoginAvailable/{newLogin}")]
+        public async Task<ActionResult<string>> CheckLogin(string newLogin)
+        {
+            var isLoginAvailable = await _service.CheckLoginAsync(newLogin);
+
+            return isLoginAvailable
+                ? Ok(new
+                {
+                    Message = "Логин свободен",
+                    Date = DateTime.UtcNow
+                })
+                : BadRequest(new
+                {
+                    Message = "Логин уже занят другим пользователем",
+                    StatusCode = "BadRequest [400]",
+                    Date = DateTime.UtcNow,
+                });
+        }
 
         [AllowAnonymous]
         [HttpPost("Authorize")]
@@ -39,7 +59,11 @@ namespace OxideWebApi.Controllers
 
         [Authorize]
         [HttpGet("CheckToken")]
-        public async Task<ActionResult<bool>> ValidateToken()
-            => NoContent();
+        public ActionResult ValidateToken()
+            => Ok(new
+            {
+                Message = "Токен действует",
+                Date = DateTime.UtcNow
+            });
     }
 }

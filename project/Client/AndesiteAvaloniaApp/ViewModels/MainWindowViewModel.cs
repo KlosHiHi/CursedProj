@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace AndesiteAvaloniaApp.ViewModels
 
         private async void StartSession()
         {
-            if (await CheckAuth())
+            if (true)//await CheckAuth()
             {
                 CurrentPage = _menuView;
             }
@@ -58,17 +59,25 @@ namespace AndesiteAvaloniaApp.ViewModels
         {
             var jwt = TokenStorage.Instance.Token;
 
-            if (String.IsNullOrEmpty(jwt))
+            if (String.IsNullOrWhiteSpace(jwt))
                 return false;
 
-            var responce = await HttpClientOption.Client.GetAsync($"{HttpClientOption.BaseUrl}Login/CheckToken");
-
-            return responce.StatusCode switch
+            try
             {
-                HttpStatusCode.Unauthorized => false,
-                HttpStatusCode.NoContent => true,
-                _ => false
-            };
+                using var responce = await HttpClientOption.Client.GetAsync("Login/CheckToken");
+
+                return responce.StatusCode switch
+                {
+                    HttpStatusCode.Unauthorized => false,
+                    HttpStatusCode.OK => true,
+                    _ => false
+                };
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[{ex.GetType()}] - {ex.Message}, {ex.Data}");
+                return false;
+            }
         }
 
         private void MainWindowViewModel_OnLogout()

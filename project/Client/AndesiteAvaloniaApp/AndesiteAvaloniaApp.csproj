@@ -28,6 +28,7 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="MessageBox.Avalonia" Version="12.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="SkiaSharp" Version="4.155.0" />
     <PackageReference Include="Svg.Skia" Version="5.2.3" />
@@ -39,5 +40,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Server\OxideClassLibrary\OxideClassLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controls\NoteView.axaml.cs">
+      <DependentUpon>NoteView.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

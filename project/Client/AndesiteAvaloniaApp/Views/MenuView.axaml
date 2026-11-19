@@ -20,95 +20,102 @@
 		<vm:MenuViewModel/>
     </Design.DataContext>
 
-  <DockPanel>
-	  <DockPanel DockPanel.Dock="Left" Background="{DynamicResource Surface}" Width="{Binding MenuPanelWidth}">  
+  <Grid ClipToBounds="True">
+	  <Border HorizontalAlignment="Left" ZIndex="2">
+		  <DockPanel Name="MenuDockePanel" DockPanel.Dock="Left" Background="{DynamicResource Surface}" Width="{Binding MenuPanelWidth}">  
       
-        <Border Classes="menu_part" DockPanel.Dock="Bottom">
-            <StackPanel>
-			      <StackPanel Classes="menu_button" Name="Profile">
+			<Border Classes="menu_part" DockPanel.Dock="Bottom">
+				<StackPanel>
+					  <StackPanel Classes="menu_button" Name="Profile">
 					  
-					  <i:Interaction.Behaviors>
-						  <ia:EventTriggerBehavior EventName="PointerPressed">
-							  <ia:InvokeCommandAction Command="{Binding OpenProfileCommand}"/>
-						  </ia:EventTriggerBehavior>
-					  </i:Interaction.Behaviors>
+						  <i:Interaction.Behaviors>
+							  <ia:EventTriggerBehavior EventName="PointerPressed">
+								  <ia:InvokeCommandAction Command="{Binding OpenWorkPageCommand}" CommandParameter="{Binding $parent[StackPanel].Name}"/>
+							  </ia:EventTriggerBehavior>
+						  </i:Interaction.Behaviors>
 					  
-				      <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
-                      <TextBlock Text="Профиль" IsVisible="{Binding IsOpen}"/>
-                  </StackPanel>
+						  <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
+						  <TextBlock Text="Профиль" IsVisible="{Binding IsOpen}"/>
+					  </StackPanel>
 
-                  <StackPanel Classes="menu_button" Name="Archive">
+					  <StackPanel Classes="menu_button" Name="Archive">
 
-					  <i:Interaction.Behaviors>
-						  <ia:EventTriggerBehavior EventName="PointerPressed">
-							  <ia:InvokeCommandAction Command="{Binding OpenArchiveCommand}"/>
-						  </ia:EventTriggerBehavior>
-					  </i:Interaction.Behaviors>
+						  <i:Interaction.Behaviors>
+							  <ia:EventTriggerBehavior EventName="PointerPressed">
+								  <ia:InvokeCommandAction Command="{Binding OpenWorkPageCommand}" CommandParameter="{Binding $parent[StackPanel].Name}"/>
+							  </ia:EventTriggerBehavior>
+						  </i:Interaction.Behaviors>
 					  
-				      <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
-                      <TextBlock Text="Архив" IsVisible="{Binding IsOpen}"/>
-                  </StackPanel>
+						  <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
+						  <TextBlock Text="Архив" IsVisible="{Binding IsOpen}"/>
+					  </StackPanel>
 
-                  <StackPanel Classes="menu_button" Name="Trash">
+					  <StackPanel Classes="menu_button" Name="Trash">
 
-					  <i:Interaction.Behaviors>
-						  <ia:EventTriggerBehavior EventName="PointerPressed">
-							  <ia:InvokeCommandAction Command="{Binding OpenTrashCommand}"  CommandParameter="{Binding $self.Name}"/>
-						  </ia:EventTriggerBehavior>
-					  </i:Interaction.Behaviors>
+						  <i:Interaction.Behaviors>
+							  <ia:EventTriggerBehavior EventName="PointerPressed">
+								  <ia:InvokeCommandAction Command="{Binding OpenWorkPageCommand}" CommandParameter="{Binding $parent[StackPanel].Name}"/>
+							  </ia:EventTriggerBehavior>
+						  </i:Interaction.Behaviors>
 					  
-				      <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
-                      <TextBlock Text="Корзина" IsVisible="{Binding IsOpen}"/>
-                  </StackPanel>
+						  <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
+						  <TextBlock Text="Корзина" IsVisible="{Binding IsOpen}"/>
+					  </StackPanel>
 
-                  <StackPanel Classes="menu_button" Name="Setting">
+					  <StackPanel Classes="menu_button" Name="Setting">
 
-					  <i:Interaction.Behaviors>
-						  <ia:EventTriggerBehavior EventName="PointerPressed">
-							  <ia:InvokeCommandAction Command="{Binding OpenSettingCommand}"  CommandParameter="{Binding $self.Name}"/>
-						  </ia:EventTriggerBehavior>
-					  </i:Interaction.Behaviors>
+						  <i:Interaction.Behaviors>
+							  <ia:EventTriggerBehavior EventName="PointerPressed">
+								  <ia:InvokeCommandAction Command="{Binding OpenWorkPageCommand}" CommandParameter="{Binding $parent[StackPanel].Name}"/>
+							  </ia:EventTriggerBehavior>
+						  </i:Interaction.Behaviors>
 					  
-				      <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
-                      <TextBlock Text="Настройки" IsVisible="{Binding IsOpen}"/>
-                  </StackPanel>
-              </StackPanel>
-          </Border>
-
-          <Border Classes="menu_part" DockPanel.Dock="Top">
-			  <DockPanel>
-				  <Button DockPanel.Dock="Left" Classes="burger" Command="{Binding ChangeMenuStateCommand}">
-					  <Image Source="{Binding MenuImage}" Width="50" Height="50"/>
-				  </Button>
-				  <TextBlock Classes="main_block" Text="АНДЕЗИТ" IsVisible="{Binding IsOpen}"/>
-			  </DockPanel>
-			  
-          </Border>
-
-          <DockPanel IsVisible="{Binding IsOpen}">
-              <TextBox Classes="menu" DockPanel.Dock="Top" PlaceholderText="Введите название"/>
-			  
-			  <Border Classes="category">
-				  <StackPanel>
-					  <DockPanel DockPanel.Dock="Top">
-					  
-						  <Button DockPanel.Dock="Right">
-							  <Image Source="{Binding MenuImage}" Width="20" Height="20"/>						  
-						  </Button>
-					  
-						  <TextBox Classes="menu" DockPanel.Dock="Top" PlaceholderText="Введите категорию"/>
-					  
-					  </DockPanel>
+						  <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg"/>
+						  <TextBlock Text="Настройки" IsVisible="{Binding IsOpen}"/>
+					  </StackPanel>
 				  </StackPanel>
 			  </Border>
+
+			  <Border Classes="menu_part" DockPanel.Dock="Top">
+				  <DockPanel>
+					  <Button DockPanel.Dock="Left" Classes="burger" Command="{Binding ChangeMenuStateCommand}">
+						  <Image Source="{Binding MenuImage}" Width="50" Height="50"/>
+					  </Button>
+					  <TextBlock Classes="main_block" Text="АНДЕЗИТ" IsVisible="{Binding IsOpen}">
+						  <i:Interaction.Behaviors>
+							  <ia:EventTriggerBehavior EventName="PointerPressed">
+								  <ia:InvokeCommandAction Command="{Binding LoadMenuViewCommand}"/>
+							  </ia:EventTriggerBehavior>
+						  </i:Interaction.Behaviors>
+					  </TextBlock>
+				  </DockPanel>			  
+			  </Border>
+
+			  <DockPanel IsVisible="{Binding IsOpen}">
+				  <TextBox Classes="menu" DockPanel.Dock="Top" PlaceholderText="Введите название"/>
 			  
-          </DockPanel>
-
-      </DockPanel>
-	    <ContentControl Content="{Binding WorkPage}"/>
-      <DockPanel>
-          
-      </DockPanel>
-
-  </DockPanel>
+				  <Border Classes="category">
+					  <StackPanel>
+						  <DockPanel DockPanel.Dock="Top">
+					  
+							  <Button DockPanel.Dock="Right">
+								  <Image Source="{Binding MenuImage}" Width="20" Height="20"/>						  
+							  </Button>
+					  
+							  <TextBox Classes="menu" DockPanel.Dock="Top" PlaceholderText="Введите категорию"/>
+					  
+						  </DockPanel>
+					  </StackPanel>
+				  </Border>
+			  </DockPanel>
+		  </DockPanel>
+	</Border>
+	<Border Classes="shadow" IsVisible="{Binding IsOpen}"/>
+	  <Border>
+		  <Border.RenderTransform>
+			  <TranslateTransform X="60"/>
+		  </Border.RenderTransform>
+		  <ContentControl Content="{Binding WorkPage}"/>		  
+		</Border>
+	</Grid>
 </UserControl>

@@ -1,11 +1,9 @@
 ﻿using AndesiteAvaloniaApp.Helpers;
-using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Xml.Linq;
 
 namespace AndesiteAvaloniaApp.ViewModels
 {
@@ -38,27 +36,16 @@ namespace AndesiteAvaloniaApp.ViewModels
         }
 
         [RelayCommand]
-        private void OpenProfile()
+        private void OpenWorkPage(string name)
         {
-            WorkPage = ServiceLocator.ServiceProvider.GetRequiredService<ProfileViewModel>();
-        }
+            var viewModelPathString = $"AndesiteAvaloniaApp.ViewModels.{name}ViewModel";
+            var viewModelType = Type.GetType(viewModelPathString);
 
-        [RelayCommand]
-        private void OpenSetting()
-        {
-            WorkPage = ServiceLocator.ServiceProvider.GetRequiredService<SettingViewModel>();
-        }
+            if (viewModelType is null)
+                return;
 
-        [RelayCommand]
-        private void OpenArchive()
-        {
-            WorkPage = ServiceLocator.ServiceProvider.GetRequiredService<ArchiveViewModel>();
-        }
-
-        [RelayCommand]
-        private void OpenTrash()
-        {
-            WorkPage = ServiceLocator.ServiceProvider.GetRequiredService<TrashViewModel>();
+            var viewModel = ServiceLocator.ServiceProvider.GetRequiredService(viewModelType) as ViewModelBase ?? null!;
+            WorkPage = viewModel;
         }
 
         [RelayCommand]

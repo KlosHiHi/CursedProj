@@ -3,7 +3,6 @@ using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace AndesiteAvaloniaApp.ViewModels
@@ -13,15 +12,9 @@ namespace AndesiteAvaloniaApp.ViewModels
         private readonly IAuthService _authservice = authService;
 
         [ObservableProperty]
-        [NotifyDataErrorInfo]
-        [Required(ErrorMessage = "Логин обязательно ввести")]
-        [StringLength(50, MinimumLength = 4, ErrorMessage = "Длина от 4 до 50 символов")]
         private string? _login;
 
         [ObservableProperty]
-        [NotifyDataErrorInfo]
-        [Required(ErrorMessage = "Пароль обязательно ввести")]
-        [StringLength(50, MinimumLength = 4, ErrorMessage = "Длина от 4 до 50 символов")]
         private string? _password;
 
         [RelayCommand]
@@ -34,7 +27,7 @@ namespace AndesiteAvaloniaApp.ViewModels
 
             if (response is null)
             {
-                await MessageBoxService.ShowError();
+                await MessageBoxService.ShowSimpleMessageBox("Введённые данные не верны", MsgBoxType.Error);
             }
             else
             {
@@ -48,15 +41,15 @@ namespace AndesiteAvaloniaApp.ViewModels
             string login = Login ?? "";
             string password = Password ?? "";
 
-            if (String.IsNullOrEmpty(login))
+            if (String.IsNullOrWhiteSpace(login))
             {
-                await MessageBoxService.ShowInfo();
+                await MessageBoxService.ShowSimpleMessageBox("Поле логина не должно быть пустым", MsgBoxType.Info);
                 return false;
             }
 
-            if (String.IsNullOrEmpty(password))
+            if (String.IsNullOrWhiteSpace(password))
             {
-                await MessageBoxService.ShowInfo();
+                await MessageBoxService.ShowSimpleMessageBox("Поле пароль не должно быть пустым", MsgBoxType.Info);
                 return false;
             }
 
