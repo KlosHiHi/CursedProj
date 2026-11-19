@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace AndesiteAvaloniaApp.ViewModels
@@ -12,15 +13,23 @@ namespace AndesiteAvaloniaApp.ViewModels
         private readonly IAuthService _authservice = authService;
 
         [ObservableProperty]
+        [NotifyDataErrorInfo]
+        [Required(ErrorMessage = "Логин обязательно ввести")]
+        [StringLength(50, MinimumLength = 4, ErrorMessage = "Длина от 4 до 50 символов")]
         private string? _login;
 
         [ObservableProperty]
+        [NotifyDataErrorInfo]
+        [Required(ErrorMessage = "Пароль обязательно ввести")]
+        [StringLength(20, MinimumLength = 4, ErrorMessage = "Длина от 4 до 20 символов")]
         private string? _password;
 
         [ObservableProperty]
         private string? _checkPassword;
 
         [ObservableProperty]
+        [NotifyDataErrorInfo]
+        [RegularExpression("([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]+)", ErrorMessage = "Некорректный формат")]
         private string? _email;
 
 
@@ -30,7 +39,7 @@ namespace AndesiteAvaloniaApp.ViewModels
             if (!await IsValidData())
                 return;
 
-            var response = await _authservice.RegisterUserAsync(Login, Password, Email);
+            var response = await _authservice.RegisterUserAsync(Login!, Password!, Email);
 
             if (response is null)
             {
@@ -41,7 +50,7 @@ namespace AndesiteAvaloniaApp.ViewModels
 
             }
 
-            var token = await _authservice.AuthUserAsync(Login, Password);
+            var token = await _authservice.AuthUserAsync(Login!, Password!);
 
             if (token is null)
             {
@@ -59,7 +68,7 @@ namespace AndesiteAvaloniaApp.ViewModels
         {
             string login = Login ?? "";
             string password = Password ?? "";
-            string checkpassword = CheckPassword ?? "";
+            string checkPassword = CheckPassword ?? "";
 
             if (String.IsNullOrEmpty(login))
             {
@@ -73,7 +82,7 @@ namespace AndesiteAvaloniaApp.ViewModels
                 return false;
             }
 
-            if (password != checkpassword)
+            if (password != checkPassword)
             {
                 await MessageBoxService.ShowInfo();
                 return false;

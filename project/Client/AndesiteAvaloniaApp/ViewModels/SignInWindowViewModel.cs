@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace AndesiteAvaloniaApp.ViewModels
@@ -12,9 +13,15 @@ namespace AndesiteAvaloniaApp.ViewModels
         private readonly IAuthService _authservice = authService;
 
         [ObservableProperty]
+        [NotifyDataErrorInfo]
+        [Required(ErrorMessage = "Логин обязательно ввести")]
+        [StringLength(50, MinimumLength = 4, ErrorMessage = "Длина от 4 до 50 символов")]
         private string? _login;
 
         [ObservableProperty]
+        [NotifyDataErrorInfo]
+        [Required(ErrorMessage = "Пароль обязательно ввести")]
+        [StringLength(50, MinimumLength = 4, ErrorMessage = "Длина от 4 до 50 символов")]
         private string? _password;
 
         [RelayCommand]
@@ -23,7 +30,7 @@ namespace AndesiteAvaloniaApp.ViewModels
             if (!await IsValidData())
                 return;
 
-            var response = await _authservice.AuthUserAsync(Login, Password);
+            var response = await _authservice.AuthUserAsync(Login!, Password!);
 
             if (response is null)
             {

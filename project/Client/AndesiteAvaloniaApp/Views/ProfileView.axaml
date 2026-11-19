@@ -12,6 +12,6 @@
 	</Design.DataContext>
 
 	<DockPanel>
-		<Button Command="{Binding LogOutCommand}"/>
+		<Button Classes="standart" Content="Выход" Command="{Binding LogOutCommand}"/>
 	</DockPanel>  
 </UserControl>

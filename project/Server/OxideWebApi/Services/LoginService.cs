@@ -82,7 +82,7 @@ namespace OxideWebApi.Services
                 issuer: configuration["Jwt:Issuer"],
                 audience: configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddSeconds(15),
+                expires: DateTime.UtcNow.AddSeconds(double.Parse(configuration["Jwt:LifeTimeDays"]!)),
                 signingCredentials: credentials
             );
 

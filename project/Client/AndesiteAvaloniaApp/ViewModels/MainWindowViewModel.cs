@@ -61,9 +61,7 @@ namespace AndesiteAvaloniaApp.ViewModels
             if (String.IsNullOrEmpty(jwt))
                 return false;
 
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{HttpClientOption.BaseUrl}Login/CheckToken");
-
-            var responce = HttpClientOption.Client.Send(request);
+            var responce = await HttpClientOption.Client.GetAsync($"{HttpClientOption.BaseUrl}Login/CheckToken");
 
             return responce.StatusCode switch
             {

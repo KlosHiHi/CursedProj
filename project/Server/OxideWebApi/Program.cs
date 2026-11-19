@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using OxideWebApi.Contexts;
 using OxideWebApi.Services;
 using Scalar.AspNetCore;
-using System.Security.Claims;
 using System.Text;
 
 
@@ -34,8 +33,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidAudience = builder.Configuration["Jwt:Audience"],
 
             ValidateLifetime = true,
-            RequireExpirationTime = true,
-            RequireSignedTokens = true,
             ValidAlgorithms = [SecurityAlgorithms.HmacSha256],
 
             ClockSkew = TimeSpan.Zero,

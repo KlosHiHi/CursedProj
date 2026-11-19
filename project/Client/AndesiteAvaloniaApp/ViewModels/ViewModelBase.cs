@@ -2,7 +2,7 @@
 
 namespace AndesiteAvaloniaApp.ViewModels
 {
-    public abstract class ViewModelBase : ObservableObject
+    public abstract class ViewModelBase : ObservableValidator
     {
     }
 }

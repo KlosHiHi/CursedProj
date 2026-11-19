@@ -50,7 +50,7 @@ namespace AndesiteAvaloniaApp.Services
             {
                 Login = login,
                 Password = password,
-                Email = email ?? "",
+                Email = email ?? null,
             });
 
             using var response = await HttpClientOption.Client.PostAsync(url, json);
