@@ -21,5 +21,5 @@ public partial class User
 
     public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 
-    public virtual ICollection<Draft> Drafts { get; set; } = new List<Draft>();
+    public virtual ICollection<Draft> Drafts { get; set; } = [];
 }

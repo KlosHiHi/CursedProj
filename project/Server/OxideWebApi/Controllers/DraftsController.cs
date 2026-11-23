@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OxideClassLibrary.DTOs;
 using OxideClassLibrary.Models;
 using OxideWebApi.Contexts;
 
@@ -13,31 +14,89 @@ public class DraftsController : ControllerBase
         _context = context;
     }
 
-    // GET: api/Draft
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Draft>>> GetDraft()
+    [HttpGet("Active/{id}")]
+    public async Task<ActionResult<IEnumerable<DraftDto>>> GetActiveDraft(Guid id)
     {
-        return await _context.Drafts.ToListAsync();
+        var user = await _context.Users
+            .FirstOrDefaultAsync(un => un.UserId == id);
+
+        if (user is null)
+            return NotFound();
+
+        var userDrafts = user.Drafts
+            .Where(d => !d.IsArhived && !d.IsDeleted)
+            .Select(d => new DraftDto
+            {
+                DraftId = d.DraftId,
+                Title = d.Title,
+                CategoryId = d.CategoryId,
+                CreationTime = d.CreationTime,
+                LastChangeTime = d.LastChangeTime,
+            })
+            .ToList();
+
+        return userDrafts;
     }
 
-    // GET: api/Draft/5
+
+    [HttpGet("Archive/{id}")]
+    public async Task<ActionResult<IEnumerable<DraftDto>>> GetArchiveDraft(Guid id)
+    {
+        var user = await _context.Users
+            .FirstOrDefaultAsync(un => un.UserId == id);
+
+        if (user is null)
+            return NotFound();
+
+        var userDrafts = user.Drafts
+            .Where(d => d.IsArhived)
+            .Select(d => new DraftDto
+            {
+                DraftId = d.DraftId,
+                Title = d.Title,
+                CategoryId = d.CategoryId,
+                CreationTime = d.CreationTime,
+                LastChangeTime = d.LastChangeTime,
+            })
+            .ToList();
+
+        return userDrafts;
+    }
+
+    [HttpGet("Trash/{id}")]
+    public async Task<ActionResult<IEnumerable<DraftDto>>> GetTrashDraft(Guid id)
+    {
+        var user = await _context.Users
+            .FirstOrDefaultAsync(un => un.UserId == id);
+
+        if (user is null)
+            return NotFound();
+
+        var userDrafts = user.Drafts
+            .Where(d => d.IsDeleted)
+            .Select(d => new DraftDto
+            {
+                DraftId = d.DraftId,
+                Title = d.Title,
+                CategoryId = d.CategoryId,
+                CreationTime = d.CreationTime,
+                LastChangeTime = d.LastChangeTime,
+            })
+            .ToList();
+
+        return userDrafts;
+    }
+
     [HttpGet("{draftid}")]
-    public async Task<ActionResult<Draft>> GetDraft(System.Guid draftid)
+    public async Task<ActionResult<Draft>> GetDraft(Guid draftid)
     {
         var draft = await _context.Drafts.FindAsync(draftid);
 
-        if (draft == null)
-        {
-            return NotFound();
-        }
-
-        return draft;
+        return draft is null ? NotFound() : draft;
     }
 
-    // PUT: api/Draft/5
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{draftid}")]
-    public async Task<IActionResult> PutDraft(System.Guid? draftid, Draft draft)
+    public async Task<IActionResult> PutDraft(Guid? draftid, Draft draft)
     {
         if (draftid != draft.DraftId)
         {
@@ -65,8 +124,6 @@ public class DraftsController : ControllerBase
         return NoContent();
     }
 
-    // POST: api/Draft
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
     public async Task<ActionResult<Draft>> PostDraft(Draft draft)
     {
@@ -76,9 +133,8 @@ public class DraftsController : ControllerBase
         return CreatedAtAction("GetDraft", new { draftid = draft.DraftId }, draft);
     }
 
-    // DELETE: api/Draft/5
     [HttpDelete("{draftid}")]
-    public async Task<IActionResult> DeleteDraft(System.Guid? draftid)
+    public async Task<IActionResult> DeleteDraft(Guid? draftid)
     {
         var draft = await _context.Drafts.FindAsync(draftid);
         if (draft == null)
@@ -92,7 +148,7 @@ public class DraftsController : ControllerBase
         return NoContent();
     }
 
-    private bool DraftExists(System.Guid? draftid)
+    private bool DraftExists(Guid? draftid)
     {
         return _context.Drafts.Any(e => e.DraftId == draftid);
     }

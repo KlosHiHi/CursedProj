@@ -16,8 +16,7 @@ public class NotesController : ControllerBase
     }
 
     [HttpGet("Active/{id}")]
-    //[Authorize]
-    [AllowAnonymous]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<NoteDto>>> GetActiveNotes(Guid id)
     {
         var activeNotes = _context.UserNotes
@@ -64,7 +63,7 @@ public class NotesController : ControllerBase
     }
 
     [HttpGet("Trash/{id}")]
-    [AllowAnonymous]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<NoteDto>>> GetTrashNotes(Guid id)
     {
         var trashNotes = _context.UserNotes
@@ -87,16 +86,17 @@ public class NotesController : ControllerBase
     }
 
     [HttpGet("{noteid}")]
-    public async Task<ActionResult<Note>> GetNote(System.Guid noteid)
+    [Authorize]
+    public async Task<ActionResult<Note>> GetNote(Guid noteid)
     {
         var note = await _context.Notes.FindAsync(noteid);
 
         return note is null ? NotFound() : note;
     }
 
-    // PUT: api/Note/5
     [HttpPut("{noteid}")]
-    public async Task<IActionResult> PutNote(System.Guid? noteid, Note note)
+    [Authorize]
+    public async Task<IActionResult> PutNote(Guid? noteid, Note note)
     {
         if (noteid != note.NoteId)
         {
@@ -124,9 +124,8 @@ public class NotesController : ControllerBase
         return NoContent();
     }
 
-    // POST: api/Note
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<Note>> PostNote(Note note)
     {
         _context.Notes.Add(note);
@@ -135,12 +134,12 @@ public class NotesController : ControllerBase
         return CreatedAtAction("GetNote", new { noteid = note.NoteId }, note);
     }
 
-    // DELETE: api/Note/5
     [HttpDelete("{noteid}")]
-    public async Task<IActionResult> DeleteNote(System.Guid? noteid)
+    [Authorize]
+    public async Task<IActionResult> DeleteNote(Guid? noteid)
     {
         var note = await _context.Notes.FindAsync(noteid);
-        if (note == null)
+        if (note is null)
         {
             return NotFound();
         }
@@ -151,7 +150,7 @@ public class NotesController : ControllerBase
         return NoContent();
     }
 
-    private bool NoteExists(System.Guid? noteid)
+    private bool NoteExists(Guid? noteid)
     {
         return _context.Notes.Any(e => e.NoteId == noteid);
     }

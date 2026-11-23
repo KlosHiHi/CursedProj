@@ -1,12 +1,9 @@
 ﻿using OxideClassLibrary.DTOs;
 using OxideClassLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OxideClassLibrary.Extensions
 {
-    public static class UserExtensions
+    public static class UserExtension
     {
         extension(User user)
         {
