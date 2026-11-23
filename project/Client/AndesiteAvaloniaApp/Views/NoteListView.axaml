@@ -11,9 +11,7 @@
 	<Design.DataContext>
 		<vm:NoteListViewModel/>
 	</Design.DataContext>
-    
-	                <controls:NoteView/>
-    <!--<ScrollViewer>
+    <ScrollViewer>
         <ItemsControl ItemsSource="{Binding Notes}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
@@ -21,5 +19,5 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-    </ScrollViewer>	-->
+    </ScrollViewer>
 </UserControl>

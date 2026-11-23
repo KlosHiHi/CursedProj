@@ -32,7 +32,7 @@ namespace OxideWebApi.Controllers
                     Date = DateTime.UtcNow,
                 });
         }
-
+        
         [AllowAnonymous]
         [HttpPost("Authorize")]
         public async Task<ActionResult<string>> AuthUser(LoginRequest loginData)

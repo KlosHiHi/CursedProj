@@ -6,11 +6,11 @@
 			 xmlns:i="using:Avalonia.Xaml.Interactivity"
 			 xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
-             x:DataType="vm:NoteViewModel"
+             x:DataType="vm:PresentNote"
              x:Class="AndesiteAvaloniaApp.Controls.NoteView">
 
 	<Design.DataContext>
-		<vm:NoteViewModel/>
+		<vm:PresentNote/>
 	</Design.DataContext>
 
     <Border Background="{DynamicResource SurfaceHigh}" CornerRadius="20" Padding="18" Margin="8">

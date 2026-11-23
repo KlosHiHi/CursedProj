@@ -40,7 +40,7 @@
 
 	<Style Selector="Border.shadow">
 		<Setter Property="Background" Value="{DynamicResource Black}"/>
-		<Setter Property="Opacity" Value="0.4"/>
+		<Setter Property="Opacity" Value="0.6"/>
 	</Style>
 	
 	<Style Selector="Border.category">

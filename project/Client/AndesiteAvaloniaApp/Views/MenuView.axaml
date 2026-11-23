@@ -111,11 +111,11 @@
 		  </DockPanel>
 	</Border>
 	<Border Classes="shadow" IsVisible="{Binding IsOpen}"/>
-	  <Border>
-		  <Border.RenderTransform>
-			  <TranslateTransform X="60"/>
-		  </Border.RenderTransform>
-		  <ContentControl Content="{Binding WorkPage}"/>		  
-		</Border>
+	  <DockPanel>
+		  <TextBlock Width="60"/>
+		  <Border>
+			  <ContentControl Content="{Binding WorkPage}"/>
+		  </Border>
+	  </DockPanel>
 	</Grid>
 </UserControl>
