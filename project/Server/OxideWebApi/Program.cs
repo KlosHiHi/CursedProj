@@ -42,6 +42,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 
 builder.Services.AddTransient<ILoginService, LoginService>();
+builder.Services.AddTransient<INotesService, NotesService>();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();

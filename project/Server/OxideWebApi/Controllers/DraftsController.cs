@@ -18,6 +18,7 @@ public class DraftsController : ControllerBase
     public async Task<ActionResult<IEnumerable<DraftDto>>> GetActiveDraft(Guid id)
     {
         var user = await _context.Users
+            .Include(u => u.Drafts)
             .FirstOrDefaultAsync(un => un.UserId == id);
 
         if (user is null)
@@ -43,6 +44,7 @@ public class DraftsController : ControllerBase
     public async Task<ActionResult<IEnumerable<DraftDto>>> GetArchiveDraft(Guid id)
     {
         var user = await _context.Users
+            .Include(u => u.Drafts)
             .FirstOrDefaultAsync(un => un.UserId == id);
 
         if (user is null)
@@ -67,6 +69,7 @@ public class DraftsController : ControllerBase
     public async Task<ActionResult<IEnumerable<DraftDto>>> GetTrashDraft(Guid id)
     {
         var user = await _context.Users
+            .Include(u => u.Drafts)
             .FirstOrDefaultAsync(un => un.UserId == id);
 
         if (user is null)

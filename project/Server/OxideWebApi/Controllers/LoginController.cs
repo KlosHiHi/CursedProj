@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OxideClassLibrary.DTOs;
-using OxideClassLibrary.Models;
-using OxideWebApi.Services;
 using OxideClassLibrary.Extensions;
+using OxideWebApi.Services;
 
 namespace OxideWebApi.Controllers
 {
@@ -32,7 +31,7 @@ namespace OxideWebApi.Controllers
                     Date = DateTime.UtcNow,
                 });
         }
-        
+
         [AllowAnonymous]
         [HttpPost("Authorize")]
         public async Task<ActionResult<string>> AuthUser(LoginRequest loginData)

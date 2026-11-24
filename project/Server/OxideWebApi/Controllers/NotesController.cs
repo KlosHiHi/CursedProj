@@ -1,157 +1,117 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using OxideClassLibrary.DTOs;
 using OxideClassLibrary.Models;
-using OxideWebApi.Contexts;
+using OxideWebApi.Services;
 
 [Route("api/[controller]")]
 [ApiController]
-public class NotesController : ControllerBase
+public class NotesController(INotesService service) : ControllerBase
 {
-    private readonly OxideDbContext _context;
-    public NotesController(OxideDbContext context)
-    {
-        _context = context;
-    }
+    private readonly INotesService _notesService = service;
 
+    //[Authorize]
     [HttpGet("Active/{id}")]
-    [Authorize]
     public async Task<ActionResult<IEnumerable<NoteDto>>> GetActiveNotes(Guid id)
     {
-        var activeNotes = _context.UserNotes
-            .Where(un => un.UserId == id
-                && !un.Note.IsArhived
-                && !un.Note.IsDeleted)
-            .Select(un => new NoteDto
-            {
-                NoteId = un.Note.NoteId,
-                Title = un.Note.Title,
-                Content = un.Note.Content,
-                Role = un.Role,
-                CategoryId = un.Note.CategoryId,
-                IsCommented = un.Note.IsCommented,
-                CreationTime = un.Note.CreationTime,
-                LastChangeTime = un.Note.LastChangeTime,
-            })
-            .ToListAsync();
+        var activeNotes = await _notesService.GetActiveNotesAsync(id);
 
-        return await activeNotes;
+        return Ok(activeNotes);
     }
 
+    //[Authorize]
     [HttpGet("Archive/{id}")]
-    [Authorize]
     public async Task<ActionResult<IEnumerable<NoteDto>>> GetArchiveNotes(Guid id)
     {
-        var archiveNotes = _context.UserNotes
-            .Where(un => un.UserId == id
-                && un.Note.IsArhived)
-            .Select(un => new NoteDto
-            {
-                NoteId = un.Note.NoteId,
-                Title = un.Note.Title,
-                Content = un.Note.Content,
-                Role = un.Role,
-                CategoryId = un.Note.CategoryId,
-                IsCommented = un.Note.IsCommented,
-                CreationTime = un.Note.CreationTime,
-                LastChangeTime = un.Note.LastChangeTime,
-            })
-            .ToListAsync();
+        var archiveNotes = await _notesService.GetArchiveNotesAsync(id);
 
-        return await archiveNotes;
+        return Ok(archiveNotes);
     }
 
+    //[Authorize]
     [HttpGet("Trash/{id}")]
-    [Authorize]
     public async Task<ActionResult<IEnumerable<NoteDto>>> GetTrashNotes(Guid id)
     {
-        var trashNotes = _context.UserNotes
-            .Where(un => un.UserId == id
-                && un.Note.IsDeleted)
-            .Select(un => new NoteDto
-            {
-                NoteId = un.Note.NoteId,
-                Title = un.Note.Title,
-                Content = un.Note.Content,
-                Role = un.Role,
-                CategoryId = un.Note.CategoryId,
-                IsCommented = un.Note.IsCommented,
-                CreationTime = un.Note.CreationTime,
-                LastChangeTime = un.Note.LastChangeTime,
-            })
-            .ToListAsync();
+        var trashNotes = await _notesService.GetTrashNotesAsync(id);
 
-        return await trashNotes;
+        return Ok(trashNotes);
     }
 
+    //[Authorize]
     [HttpGet("{noteid}")]
-    [Authorize]
     public async Task<ActionResult<Note>> GetNote(Guid noteid)
     {
-        var note = await _context.Notes.FindAsync(noteid);
+        var note = await _notesService.GetNoteAsync(noteid);
 
-        return note is null ? NotFound() : note;
+        return note is null ? NotFound() : Ok(note);
     }
 
+    //[Authorize]
     [HttpPut("{noteid}")]
-    [Authorize]
     public async Task<IActionResult> PutNote(Guid? noteid, Note note)
     {
-        if (noteid != note.NoteId)
-        {
-            return BadRequest();
-        }
+        var result = await _notesService.PutNoteAsync(noteid, note);
 
-        _context.Entry(note).State = EntityState.Modified;
+        if (result is null)
+            return NotFound();
 
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!NoteExists(noteid))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
-
-        return NoContent();
+        return result.Value ? NoContent() : BadRequest();
     }
 
+    //[Authorize]
     [HttpPost]
-    [Authorize]
     public async Task<ActionResult<Note>> PostNote(Note note)
     {
-        _context.Notes.Add(note);
-        await _context.SaveChangesAsync();
+        await _notesService.PostNoteAsync(note);
 
-        return CreatedAtAction("GetNote", new { noteid = note.NoteId }, note);
+        return CreatedAtAction(nameof(_notesService.GetNoteAsync), new { noteid = note.NoteId }, note);
     }
 
+    //[Authorize]
+    [HttpDelete("Archive/{noteid}")]
+    public async Task<IActionResult> ArchiveNote(Guid? noteid)
+    {
+        var result = await _notesService.ArchiveNoteAsync(noteid);
+
+        if (result is null)
+            return NotFound();
+
+        return result.Value ? NoContent() : BadRequest();
+    }
+
+    //[Authorize]
+    [HttpDelete("Trash/{noteid}")]
+    public async Task<IActionResult> TrashNote(Guid? noteid)
+    {
+        var result = await _notesService.TrashNoteAsync(noteid);
+
+        if (result is null)
+            return NotFound();
+
+        return result.Value ? NoContent() : BadRequest();
+    }
+
+    //[Authorize]
+    [HttpPost("Return/{noteid}")]
+    public async Task<IActionResult> ReturnNote(Guid? noteid)
+    {
+        var result = await _notesService.ReturnNoteAsync(noteid);
+
+        if (result is null)
+            return NotFound();
+
+        return result.Value ? NoContent() : BadRequest();
+    }
+
+    //[Authorize]
     [HttpDelete("{noteid}")]
-    [Authorize]
     public async Task<IActionResult> DeleteNote(Guid? noteid)
     {
-        var note = await _context.Notes.FindAsync(noteid);
-        if (note is null)
-        {
+        var result = await _notesService.DeleteNoteAsync(noteid);
+
+        if (result is null)
             return NotFound();
-        }
 
-        _context.Notes.Remove(note);
-        await _context.SaveChangesAsync();
-
-        return NoContent();
-    }
-
-    private bool NoteExists(Guid? noteid)
-    {
-        return _context.Notes.Any(e => e.NoteId == noteid);
+        return result.Value ? NoContent() : BadRequest();
     }
 }
