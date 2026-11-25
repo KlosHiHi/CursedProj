@@ -11,6 +11,7 @@
 	<Design.DataContext>
 		<vm:NoteListViewModel/>
 	</Design.DataContext>
+
     <ScrollViewer>
         <ItemsControl ItemsSource="{Binding Notes}">
             <ItemsControl.ItemTemplate>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Редактор заметки</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="toolbar" role="toolbar" aria-label="Форматирование">
+        <button type="button" data-action="bold" title="Жирный"><b>B</b></button>
+        <button type="button" data-action="italic" title="Курсив"><i>I</i></button>
+        <button type="button" data-action="strike" title="Зачёркнутый"><s>S</s></button>
+        <span class="separator"></span>
+        <button type="button" data-action="paragraph" title="Обычный текст">Текст</button>
+        <button type="button" data-action="h1" title="Заголовок 1">H1</button>
+        <button type="button" data-action="h2" title="Заголовок 2">H2</button>
+        <button type="button" data-action="h3" title="Заголовок 3">H3</button>
+        <span class="separator"></span>
+        <button type="button" data-action="bulletList" title="Маркированный список">• Список</button>
+        <button type="button" data-action="orderedList" title="Нумерованный список">1. Список</button>
+        <span class="separator"></span>
+        <button type="button" data-action="undo" title="Отменить">↶</button>
+        <button type="button" data-action="redo" title="Повторить">↷</button>
+      </div>
+      <main id="editor" aria-label="Текст заметки"></main>
+      <div class="status"><span id="status-text">Готово</span></div>
+    </div>
+    <script type="module" src="/src/editor.js"></script>
+  </body>
+</html>
