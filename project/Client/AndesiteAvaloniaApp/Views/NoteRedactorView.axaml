@@ -11,10 +11,6 @@
 	</Design.DataContext>
 
     <Grid>
-        <NativeWebView x:Name="EditorWebView" 
-                       NavigationCompleted="EditorWebView\_OnNavigationCompleted"
-                       WebMessageReceived="EditorWebView\_OnWebMessageReceived" />
+        <NativeWebView x:Name="EditorWebView"/>
     </Grid>
-
-
 </UserControl>

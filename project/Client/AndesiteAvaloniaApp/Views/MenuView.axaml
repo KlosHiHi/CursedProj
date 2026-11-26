@@ -92,25 +92,27 @@
 			  </Border>
 
 			  <DockPanel IsVisible="{Binding IsOpen}">
-				  <TextBox Classes="menu" DockPanel.Dock="Top" PlaceholderText="Введите название"/>
+				  <DockPanel IsVisible="{Binding IsMainPageOpen}">
+					  <TextBox Classes="menu" DockPanel.Dock="Top" PlaceholderText="Введите название"/>
 			  
-				  <Border Classes="category">
-					  <StackPanel>
-						  <DockPanel DockPanel.Dock="Top">
+					  <Border Classes="category">
+						  <StackPanel>
+							  <DockPanel DockPanel.Dock="Top">
 					  
-							  <Button DockPanel.Dock="Right">
-								  <Image Source="{Binding MenuImage}" Width="20" Height="20"/>						  
-							  </Button>
+								  <Button DockPanel.Dock="Right">
+									  <Image Source="{Binding MenuImage}" Width="20" Height="20"/>						  
+								  </Button>
 					  
-							  <TextBox Classes="menu" DockPanel.Dock="Top" PlaceholderText="Введите категорию"/>
+								  <TextBox Classes="menu" DockPanel.Dock="Top" PlaceholderText="Введите категорию"/>
 					  
-						  </DockPanel>
-					  </StackPanel>
-				  </Border>
+							  </DockPanel>
+						  </StackPanel>
+					  </Border>
+				  </DockPanel>
 			  </DockPanel>
 		  </DockPanel>
 	</Border>
-	<Border Classes="shadow" IsVisible="{Binding IsOpen}"/>
+	<Border Classes="shadow" IsVisible="{Binding IsOpen}" ZIndex="1"/>
 	  <DockPanel>
 		  <TextBlock Width="60"/>
 		  <Border>
@@ -118,4 +120,5 @@
 		  </Border>
 	  </DockPanel>
 	</Grid>
+
 </UserControl>

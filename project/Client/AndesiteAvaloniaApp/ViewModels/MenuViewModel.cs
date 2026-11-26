@@ -18,6 +18,9 @@ namespace AndesiteAvaloniaApp.ViewModels
         private static bool _isOpen = false;
 
         [ObservableProperty]
+        private static bool _isMainPageOpen = true;
+
+        [ObservableProperty]
         private ViewModelBase _workPage = ServiceLocator.ServiceProvider.GetRequiredService<NoteListViewModel>();
 
         [ObservableProperty]
@@ -45,6 +48,7 @@ namespace AndesiteAvaloniaApp.ViewModels
                 return;
 
             var viewModel = ServiceLocator.ServiceProvider.GetRequiredService(viewModelType) as ViewModelBase ?? null!;
+            IsMainPageOpen = false;
             WorkPage = viewModel;
         }
 
@@ -54,6 +58,7 @@ namespace AndesiteAvaloniaApp.ViewModels
             MenuImage = _closeImage;
             MenuPanelWidth = _menuPanelCloseWidth;
             IsOpen = false;
+            IsMainPageOpen = true;
             WorkPage = ServiceLocator.ServiceProvider.GetRequiredService<NoteListViewModel>();
         }
     }
