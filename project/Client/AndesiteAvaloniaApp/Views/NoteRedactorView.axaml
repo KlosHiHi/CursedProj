@@ -5,10 +5,19 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AndesiteAvaloniaApp.Views.NoteRedactorView"             
              xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
-             x:DataType="vm:NoteListViewModel">
+             x:DataType="vm:NoteRedactorViewModel"
+			 xmlns:i="using:Avalonia.Xaml.Interactivity"
+			 xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             >
     <Design.DataContext>
 		<vm:NoteRedactorViewModel/>
 	</Design.DataContext>
+
+	<i:Interaction.Behaviors>
+		<ia:EventTriggerBehavior EventName="Loaded">
+			<ia:InvokeCommandAction Command="{Binding OpenEditorCommand}" CommandParameter="{Binding #EditorWebView}"/>
+		</ia:EventTriggerBehavior>
+	</i:Interaction.Behaviors>
 
     <Grid>
         <NativeWebView x:Name="EditorWebView"/>

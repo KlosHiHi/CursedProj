@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 
 namespace AndesiteAvaloniaApp.ViewModels
@@ -31,5 +32,12 @@ namespace AndesiteAvaloniaApp.ViewModels
             new() { Title = "Книги к прочтению", Content = "Чистый код, Рефакторинг, Паттерны проектирования", IsMerge = false },
             new() { Title = "План тренировки", Content = "Разминка 10 мин, кардио 20 мин, силовые 15 мин", IsMerge = true  },
         ];
+
+
+        [RelayCommand]
+        private void OpenNote(PresentNote note)
+        {
+            
+        }
     }
 }

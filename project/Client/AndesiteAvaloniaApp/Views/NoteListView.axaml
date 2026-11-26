@@ -6,7 +6,10 @@
              xmlns:controls="using:AndesiteAvaloniaApp.Controls"
              xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
              x:DataType="vm:NoteListViewModel"
-             x:Class="AndesiteAvaloniaApp.Views.NoteListView">
+             x:Class="AndesiteAvaloniaApp.Views.NoteListView"
+			 xmlns:i="using:Avalonia.Xaml.Interactivity"
+			 xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             >
 
 	<Design.DataContext>
 		<vm:NoteListViewModel/>
@@ -14,11 +17,19 @@
 
     <ScrollViewer>
         <ItemsControl ItemsSource="{Binding Notes}">
+
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="DoubleTapped">
+                    <ia:InvokeCommandAction Command="{Binding OpenNoteCommand}" CommandParameter=""/>
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-	                <controls:NoteView/>
+                    <controls:NoteView/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
+
         </ItemsControl>
     </ScrollViewer>
 </UserControl>

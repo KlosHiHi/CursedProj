@@ -25,8 +25,11 @@ namespace AndesiteAvaloniaApp
                 .AddScoped<TrashViewModel>()
                 .AddScoped<SettingViewModel>()
 
+                .AddScoped<NoteRedactorViewModel>()
+
                 .AddScoped<IAuthService, AuthService>()
                 .AddScoped<IEditProfileService, EditProfileService>()
+                .AddScoped<INoteEditorService, NoteEditorService>()
                 ;
 
             ServiceProvider = services.BuildServiceProvider();
