@@ -1,4 +1,5 @@
 ﻿using AndesiteAvaloniaApp.Helpers;
+using AndesiteAvaloniaApp.Services;
 using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -7,12 +8,14 @@ using System;
 
 namespace AndesiteAvaloniaApp.ViewModels
 {
-    public partial class MenuViewModel() : ViewModelBase
+    public partial class MenuViewModel : ViewModelBase
     {
         private static readonly int _menuPanelOpenWidth = 350;
         private static readonly int _menuPanelCloseWidth = 60;
         private static readonly Bitmap? _openImage = ImageHelper.LoadFromResource(new Uri("avares://AndesiteAvaloniaApp/Assets/Icons/andesite-start.png"));
         private static readonly Bitmap _closeImage = ImageHelper.LoadFromResource(new Uri("avares://AndesiteAvaloniaApp/Assets/Icons/andesite-finish.png"));
+        public event Action? OnLoadEditor;
+        public event Action? OnCloseEditor;
 
         [ObservableProperty]
         private static bool _isOpen = false;
@@ -28,6 +31,26 @@ namespace AndesiteAvaloniaApp.ViewModels
 
         [ObservableProperty]
         private Bitmap? _menuImage = _closeImage;
+
+        public MenuViewModel()
+        {
+            OnLoadEditor += MenuViewModel_OnLoadEditor;
+            OnCloseEditor += MenuViewModel_OnCloseEditor;
+
+            var noteEditorService = ServiceLocator.ServiceProvider.GetRequiredService<INoteEditorService>();
+            noteEditorService.OnLoadEditor = OnLoadEditor;
+            noteEditorService.OnCloseEditor = OnCloseEditor;
+        }
+
+        private void MenuViewModel_OnCloseEditor()
+        {
+            WorkPage = ServiceLocator.ServiceProvider.GetRequiredService<NoteListViewModel>();
+        }
+
+        private void MenuViewModel_OnLoadEditor()
+        {
+            WorkPage = ServiceLocator.ServiceProvider.GetRequiredService<NoteRedactorViewModel>();
+        }
 
         [RelayCommand]
         private void ChangeMenuState()

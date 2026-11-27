@@ -5,8 +5,8 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:controls="using:AndesiteAvaloniaApp.Controls"
              xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
-             x:DataType="vm:NoteListViewModel"
              x:Class="AndesiteAvaloniaApp.Views.NoteListView"
+             x:DataType="vm:NoteListViewModel"
 			 xmlns:i="using:Avalonia.Xaml.Interactivity"
 			 xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              >
@@ -20,7 +20,7 @@
 
             <i:Interaction.Behaviors>
                 <ia:EventTriggerBehavior EventName="DoubleTapped">
-                    <ia:InvokeCommandAction Command="{Binding OpenNoteCommand}" CommandParameter=""/>
+                    <ia:InvokeCommandAction Command="{Binding OpenNoteCommand}" PassEventArgsToCommand="True"/>
                 </ia:EventTriggerBehavior>
             </i:Interaction.Behaviors>
 

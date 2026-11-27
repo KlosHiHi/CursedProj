@@ -12,11 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaXaml Remove="Assets\Styles\Styles.axaml" />
+    <AvaloniaResource Remove="Assets\Editor\editor.html" />
   </ItemGroup>
-
+	
+	
   <ItemGroup>
-    <None Remove="Controls\Editor\index.html" />
+    <AvaloniaXaml Remove="Assets\Styles\Styles.axaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,14 +48,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Controls\Editor\index.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Controls\NoteView.axaml.cs">
       <DependentUpon>NoteView.axaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\Editor\editor.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

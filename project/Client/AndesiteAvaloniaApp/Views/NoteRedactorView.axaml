@@ -2,24 +2,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AndesiteAvaloniaApp.Views.NoteRedactorView"             
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"          
              xmlns:vm="using:AndesiteAvaloniaApp.ViewModels"
+             xmlns:help="using:AndesiteAvaloniaApp.Helpers"
+             x:Class="AndesiteAvaloniaApp.Views.NoteRedactorView"   
              x:DataType="vm:NoteRedactorViewModel"
 			 xmlns:i="using:Avalonia.Xaml.Interactivity"
 			 xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              >
+	<i:Interaction.Behaviors>
+		<ia:EventTriggerBehavior EventName="Loaded">
+			<ia:InvokeCommandAction Command="{Binding OpenEditorWebCommand}" CommandParameter="{Binding #EditorWebView}"/>
+		</ia:EventTriggerBehavior>
+	</i:Interaction.Behaviors>
+
     <Design.DataContext>
 		<vm:NoteRedactorViewModel/>
 	</Design.DataContext>
 
-	<i:Interaction.Behaviors>
-		<ia:EventTriggerBehavior EventName="Loaded">
-			<ia:InvokeCommandAction Command="{Binding OpenEditorCommand}" CommandParameter="{Binding #EditorWebView}"/>
-		</ia:EventTriggerBehavior>
-	</i:Interaction.Behaviors>
-
     <Grid>
-        <NativeWebView x:Name="EditorWebView"/>
+        <Grid.RowDefinitions>
+			<RowDefinition Height="0.05*"/>
+			<RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+			<ColumnDefinition Width="0.05*"/>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="0.025*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="30">
+            <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg" Width="30" Height="30"/>
+        </Button>
+
+        <TextBox Text="{Binding CurrentNote.Title}" PlaceholderText="Название..." Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
+
+        <Button HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2" 
+                Command="{Binding CloseEditorWebCommand}" CommandParameter="{Binding #EditorWebView}" Width="30" Height="30">
+            <help:SvgImage Source="avares://AndesiteAvaloniaApp/Assets/Icons/info.svg" Width="30" Height="30"/>
+        </Button>
+
+        <NativeWebView Grid.Row="1" Grid.ColumnSpan="3" x:Name="EditorWebView"/>
     </Grid>
 </UserControl>
